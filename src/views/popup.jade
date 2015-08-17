@@ -4,7 +4,9 @@ html
     meta(charset="utf-8")
     link(rel="stylesheet" type="text/css" href="styles/popup.css")
     script(src="scripts/vendor/jquery.min.js")
+    script(src="scripts/slider.js")
     script(src="scripts/popup.js")
+
   body.popup
     h1 Настройки
     h2 и статистика эксперимента
@@ -27,12 +29,12 @@ html
           .arrow.left
           .arrow.right
           .container
-             - var items = 0
-            while items < 6
+            - var items = 0
+            while items < 7
               - items++
 
               .item(class="#{ items == 1  ? 'active' : '' }")
-                .text Пн, 24.05
+                .text Пн, 24.05 #{ items }
                 .num 0000:00
                 .units мин/сек
 

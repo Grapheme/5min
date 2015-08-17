@@ -4,7 +4,8 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse){
 });
 
 
-
+var t = window.___sr_templates['timer'];
+$('body').append(t({ time: '999:999' }));
 
 
 console.log('content loaded');

@@ -6,12 +6,12 @@ var watch = require('gulp-watch');
 var jade = require('gulp-jade');
 var sass = require('gulp-sass');
 // var gulpIgnore = require('gulp-ignore');
-// var concat = require('gulp-concat');
+var concat = require('gulp-concat');
 // var prefix = require('gulp-autoprefixer');
 // var bowerMain = require('bower-main');
 // var rev = require('gulp-rev');
 var plumber = require('gulp-plumber');
-
+var wrap = require("gulp-wrap");
 // var useref = require('gulp-useref');
 
 var Project = {
@@ -25,6 +25,9 @@ Project.src.styles = [Project.src.path + '/styles/**/*.scss'];
 Project.src.mainSass = Project.src.path + '/styles/main.scss';
 Project.src.fonts = Project.src.path + '/fonts/**/*';
 Project.src.images = Project.src.path + '/images/**/*';
+
+Project.src.templates = Project.src.path + '/templates/**/*';
+
 Project.src.static = [Project.src.fonts, Project.src.images];
 
 Project.build.views = Project.build.path;
@@ -33,6 +36,7 @@ Project.build.scripts = Project.build.path + '/scripts';
 Project.build.styles = Project.build.path + '/styles';
 Project.build.fonts = Project.build.path + '/fonts';
 Project.build.images = Project.build.path + '/images';
+Project.build.templates = Project.build.path;
 
 
 
@@ -57,7 +61,7 @@ var port = 8888;
 gulp.task('scripts', function() {
   return gulp.src(Project.src.scripts)
     // .pipe(concat('main.concat.js'))
-    .pipe(gulp.dest(Project.build.scripts))
+    .pipe(gulp.dest(Project.build.scripts));
     // .pipe(connect.reload());
     // .pipe(rev.manifest())
     // .pipe(gulp.dest(app_path));
@@ -84,6 +88,18 @@ gulp.task('jade', function() {
     .pipe(gulp.dest(Project.build.views));
     // .pipe(connect.reload());
 });
+
+gulp.task('client_templates', function() {
+  return gulp.src(Project.src.templates)
+    .pipe(plumber())
+    .pipe(jade({
+      client: true
+    }))
+    .pipe(wrap({ src: 'src/template_wrapper.txt' }))
+    .pipe(concat('templates.concat.js'))
+    .pipe(gulp.dest(Project.build.views));
+});
+
 
 gulp.task('sass', function () {
   gulp.src(Project.src.styles)
@@ -130,6 +146,12 @@ gulp.task('watch', function() {
   watch(Project.src.static, function () { 
     gulp.run('copy_static');
   });
+
+  watch(Project.src.templates, function () { 
+    gulp.run('client_templates');
+  });
+
+
 });
 
 var DEPLOY = false;

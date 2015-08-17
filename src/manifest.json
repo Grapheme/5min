@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "fb5min",
+  "name": "Smart Reminder",
   "version": "0.1",
-  "description": "Экстеншин против прокрастинации.",
+  "description": "Расширение помогает не засиживаться а социальных сетях.",
 
   "background": {
     "scripts": ["scripts/background.js"],
@@ -10,24 +10,28 @@
   },
 
   "permissions": [
-    "tabs", 
     "*://*.vk.com/*", "*://*.facebook.com/*"
   ],
 
   "browser_action": {
     "default_icon": "images/icon.png",
     "default_popup": "popup.html",
-    "default_title": "Это тултип!"
+    "default_title": "Smart Reminder"
   },
 
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "content_scripts": [
-      {
-          "matches": ["*://*.vk.com/*", "*://*.facebook.com/*"],
-          "js": [
-            "scripts/vendor/jquery.min.js",
-            "scripts/content.js"
-          ]
-      }
+    {
+      "matches": ["*://*.vk.com/*", "*://*.facebook.com/*"],
+      "css": [
+        "styles/content.css"
+      ],
+      "js": [
+        "scripts/vendor/jquery.min.js",
+        "scripts/vendor/jade-runtime.js",
+        "templates.concat.js",
+        "scripts/content.js"
+      ]
+    }
   ]
 }

@@ -1,0 +1,3 @@
+if (!window.___sr_templates) window.___sr_templates = {};
+console.log('sdd template', '<%= file.path.split('/').pop().replace('.js','') %>'); 
+window.___sr_templates["<%= file.path.split('/').pop().replace('.js','') %>"] = <%= contents %>;
