@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    link(rel="stylesheet" type="text/css" href="styles/popup.css")
+    script(src="scripts/vendor/jquery.min.js")
+    script(src="scripts/popup.js")
+  body.popup
+    h1 Настройки
+    h2 и статистика эксперимента
+    .wrapper
+      .total_time.row
+        .text Сколько минут ты провел в Facebook за время эксперимента?
+        .num 100000
+          .units мин
+
+      .total_books.row
+        .text 
+          | За это время ты бы прочитал 
+          span.secondary (книг в нашей библиотеки)
+        .num 100000
+          .units книг
+
+      .details
+        .text Сколько минут каждый день ты проводишь в facebook?
+        .slider
+          .arrow.left
+          .arrow.right
+          .container
+             - var items = 0
+            while items < 6
+              - items++
+
+              .item(class="#{ items == 1  ? 'active' : '' }")
+                .text Пн, 24.05
+                .num 0000:00
+                .units мин/сек
+
+   
