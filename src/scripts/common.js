@@ -27,15 +27,27 @@ SmartReminder.slider = function slider (options) {
   return options;
 };
 
-SmartReminder.block = function block(id, data) {
-  var block = {};
-  block.template = window.___sr_templates[id];
-  block.element = $('<div id="smart_reminder__'+ id +'"></div');
-  block.render = function(data) {
+SmartReminder.block = function block(id, events, data) {
+  var b = {};
+  b.template = window.___sr_templates[id];
+  b.element = $('<div id="smart_reminder__'+ id +'"></div');  
+  $.each(events, function(event_selector, func) {
+    var selector = event_selector.split(/\s+/);
+    var event = selector.shift();
+    var args = [event];
+    if (selector.length) args.push(selector.join(' '));
+    args.push(func.bind(b));
+    b.element.on.apply(b.element, args);
+  });
+
+  b.render = function(data) {
     if (!data) data = {};
     this.element.html(this.template(data));
     return this;
   };
-  $('body').append(block.render(data).element);
-  return block;
+  
+  b.render(data);
+  $('body').append(b.element);
+
+  return b;
 };
