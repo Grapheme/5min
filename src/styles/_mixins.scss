@@ -11,3 +11,9 @@
     weight: $weight;
   }
 }
+
+@mixin font_rendering {
+  font-family: 'avantgardegothicc';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
