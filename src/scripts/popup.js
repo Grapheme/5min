@@ -4,5 +4,5 @@ $(function() {
   //   chrome.extension.sendMessage({type: "hello", msg: 'Привет Говно!'});
   // });
   
-  SmartReminder.slider({ el: $('.slider'), pageSize: 2 });
+  SmartReminder.slider({ el: $('.sr-slider'), pageSize: 2 });
 });

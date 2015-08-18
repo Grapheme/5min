@@ -77,11 +77,13 @@
     color: #eeeeee; 
   }
 
-  .slider {
+  .sr-slider {
     position: relative;
     overflow: hidden; 
-    padding-left: 56px;
+    padding: 0 0 0 56px;
     margin-top: 10px;
+    height: 98px;
+
 
     .arrow {
       position: absolute;
@@ -106,6 +108,7 @@
     .container {
       display: table;
       position: relative;
+      height: 100%
     }
 
     .item {
@@ -114,7 +117,7 @@
       // vertical-align: bottom;
       vertical-align: middle;
       padding: 0 14px 0; 
-      height: 98px;
+      height: 100%;
       border-left: 2px solid #4f5554;
       position: relative;
 

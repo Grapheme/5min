@@ -180,6 +180,6 @@ gulp.task('deploy', function() {
   console.log('no deploy options specified 😒');
 });
 
-gulp.task('build', ['scripts', 'sass', 'copy_static', 'jade']);
+gulp.task('build', ['scripts', 'sass', 'copy_static', 'client_templates', 'jade']);
 
 gulp.task('default', [ 'build', 'watch', 'server']);
