@@ -30,6 +30,7 @@
         "scripts/vendor/jquery.min.js",
         "scripts/vendor/jade-runtime.js",
         "templates.concat.js",
+        "scripts/common.js",
         "scripts/content.js"
       ]
     }

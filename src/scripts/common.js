@@ -24,3 +24,17 @@ function slider (options) {
 
   return options;
 }
+
+
+function view(id, data) {
+  var block = {};
+  block.template = window.___sr_templates[id];
+  block.element = $('<div id="smart_reminder__'+ id +'"></div');
+  block.render = function(data) {
+    if (!data) data = {};
+    this.element.html(this.template(data));
+    return this;
+  };
+  $('body').append(block.render(data).element);
+  return block;
+}
