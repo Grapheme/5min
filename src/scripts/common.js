@@ -1,4 +1,6 @@
-function slider (options) {
+if (!window.SmartReminder) window.SmartReminder = {};
+
+SmartReminder.slider = function slider (options) {
   if (!options.pageSize) options.pageSize = 1;
   options.container = options.el.find('.container');
   options.items = options.container.find('.item');
@@ -23,10 +25,9 @@ function slider (options) {
   }.bind(options));
 
   return options;
-}
+};
 
-
-function view(id, data) {
+SmartReminder.block = function block(id, data) {
   var block = {};
   block.template = window.___sr_templates[id];
   block.element = $('<div id="smart_reminder__'+ id +'"></div');
@@ -37,4 +38,4 @@ function view(id, data) {
   };
   $('body').append(block.render(data).element);
   return block;
-}
+};
