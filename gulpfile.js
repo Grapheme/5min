@@ -26,7 +26,12 @@ var Project = {
 Project.src.scripts = [Project.src.path + '/scripts/**/*.js'];
 Project.src.views = [Project.src.path + '/views/**/*'];
 Project.src.styles = [Project.src.path + '/styles/**/*.scss'];
-Project.src.mainSass = Project.src.path + '/styles/main.scss';
+Project.src.sassFiles = [
+  Project.src.path + '/styles/popup.scss',
+  Project.src.path + '/styles/content.scss'
+];
+
+// Project.src.mainSass = 
 Project.src.fonts = Project.src.path + '/fonts/**/*';
 Project.src.images = Project.src.path + '/images/**/*';
 
@@ -113,7 +118,7 @@ gulp.task('client_templates', function() {
 
 
 gulp.task('sass', function () {
-  gulp.src(Project.src.styles)
+  gulp.src(Project.src.sassFiles)
     .pipe(preprocess({context: { DEV_SERVER: DEV_SERVER_URL }}))
     .pipe(sass.sync().on('error', sass.logError))
     // .pipe(prefix("last 3 version", "> 1%", "ie 8"))
