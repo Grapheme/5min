@@ -8,37 +8,5 @@ html
     script(src="scripts/popup.js")
 
   body
-    
-    .head1 Настройки
-    .head2 и статистика эксперимента
-    .wrapper
-      .total_time.row
-        .text Сколько минут ты провел в Facebook за время эксперимента?
-        .num 
-          span 100000
-          .units мин
-
-      .total_books.row
-        .text 
-          | За это время ты бы прочитал 
-          span.secondary (книг в нашей библиотеки)
-        .num
-          span 100000
-          .units книг
-
-      .details
-        .text Сколько минут каждый день ты проводишь в facebook?
-        .slider
-          .arrow.left
-          .arrow.right
-          .container
-            - var items = 0
-            while items < 7
-              - items++
-
-              .item(class="#{ items == 1  ? 'active' : '' }")
-                .text Пн, 24.05 #{ items }
-                .num 0000:00
-                .units мин/сек
-
+    include ./partials/settings.jade
    
