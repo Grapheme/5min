@@ -4,6 +4,11 @@ $base_url: '/* @echo DEV_SERVER */';
 @import 'fonts';
 @import 'mixins';
 
-@import 'content/timer';
-@import 'content/settings';
+#smart_reminder {
+  @import 'content/timer';
+  @import 'content/settings';  
+}
+
+
+
 

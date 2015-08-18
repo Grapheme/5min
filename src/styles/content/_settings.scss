@@ -1,7 +1,10 @@
 @import 'window';
 
-#smart_reminder__settings {
+&__settings {
   @extend .smart_reminder__window;
-
   
+  @import '../settings';
 }
+
+
+

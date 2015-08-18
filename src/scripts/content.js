@@ -6,13 +6,13 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse){
 });
 
 
+
 var timer = SmartReminder.block('timer', {
   'click .head': function() {
     this.element.toggleClass('hidden-block');
   },
 
   'click .settings' : function() {
-    console.log('sdsd', settings);
     settings.element.show();
   }
 });
@@ -21,6 +21,7 @@ timer.element.hide().slideDown();
 var time = 0;
 // time++;
 timer.render({ time: time });
+
 
 
 var settings = SmartReminder.block('settings', {
@@ -33,7 +34,7 @@ var settings = SmartReminder.block('settings', {
   }
 });
 
-settings.element.hide();
+// settings.element.hide();
 
 
 

@@ -24,7 +24,9 @@ var Project = {
 };
 
 Project.src.scripts = [Project.src.path + '/scripts/**/*.js'];
-Project.src.views = [Project.src.path + '/views/**/*'];
+Project.src.views = [Project.src.path + '/views/*.jade'];
+
+
 Project.src.styles = [Project.src.path + '/styles/**/*.scss'];
 Project.src.sassFiles = [
   Project.src.path + '/styles/popup.scss',
@@ -35,7 +37,7 @@ Project.src.sassFiles = [
 Project.src.fonts = Project.src.path + '/fonts/**/*';
 Project.src.images = Project.src.path + '/images/**/*';
 
-Project.src.templates = Project.src.path + '/templates/**/*';
+Project.src.templates = Project.src.path + '/views/templates/**/*';
 
 Project.src.static = [Project.src.fonts, Project.src.images];
 
@@ -111,7 +113,7 @@ gulp.task('client_templates', function() {
     .pipe(jade({
       client: true
     }))
-    .pipe(wrap({ src: 'src/template_wrapper.txt' }))
+    .pipe(wrap({ src: 'src/views/template_wrapper.txt' }))
     .pipe(concat('templates.concat.js'))
     .pipe(gulp.dest(Project.build.views));
 });
