@@ -1,0 +1,13 @@
+@mixin georgia() {
+  font: {
+    family: Georgia, 'Times New Roman', Times, serif;
+    style: italic;
+  }
+}
+
+@mixin pt_sans_narrow($weight: normal) {
+  font: {
+    family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;;
+    weight: $weight;
+  }
+}

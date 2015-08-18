@@ -1,18 +1,8 @@
+@import 'variables';
+$base_url: '../'; 
+
 @import 'fonts';
-
-@mixin georgia() {
-  font: {
-    family: Georgia, 'Times New Roman', Times, serif;
-    style: italic;
-  }
-}
-
-@mixin pt_sans_narrow($weight: normal) {
-  font: {
-    family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;;
-    weight: $weight;
-  }
-}
+@import 'mixins';
 
 html, body {
   padding: 0;
@@ -122,7 +112,7 @@ h2 {
       
       width: 56px;
       height: 100%;
-      background: #3f4443 url(../images/arrow.png) no-repeat 22px center;
+      background: #3f4443 url('#{ $base_url }images/arrow.png') no-repeat 22px center;
 
       &.left {
         left: 0;

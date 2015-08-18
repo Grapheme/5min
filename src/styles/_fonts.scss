@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'PT Sans Narrow';
+  src: url('#{ $base_url }fonts/ptn57f_w.eot');
+  src: local('PT Sans Narrow'), url('#{ $base_url }fonts/PTN57F_W.eot?#iefix') format('embedded-opentype'), url('#{ $base_url }fonts/PTN57F_W.woff') format('woff'),url('#{ $base_url }fonts/PTN57F_W.ttf') format('truetype'), url('#{ $base_url }fonts/PTN57F_W.svg#PTSans-Narrow') format('svg');
+}
+
+@font-face {
+  font-family: 'PT Sans Narrow';
+  font-weight: bold; 
+  src: url('#{ $base_url }fonts/ptn77f_w.eot');
+  src: local('PT Sans Narrow Bold'), url('#{ $base_url }fonts/PTN77F_W.eot?#iefix') format('embedded-opentype'), url('#{ $base_url }fonts/PTN77F_W.woff') format('woff'),url('#{ $base_url }fonts/PTN77F_W.ttf') format('truetype'), url('#{ $base_url }fonts/PTN77F_W.svg#PTSans-NarrowBold') format('svg');
+}

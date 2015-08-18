@@ -1,7 +1,38 @@
- #smart_reminder__timer {
-    position: fixed;
-    z-index: 9000;
-    background: red;
-    bottom: 0px;
-    left: 10px;
+@import 'variables';
+$base_url: '/* @echo DEV_SERVER */';
+
+@import 'fonts';
+@import 'mixins';
+
+#smart_reminder__timer {
+  position: fixed;
+  z-index: 9000;
+  background: #5d5e5f;
+  bottom: 0px;
+  left: 10px;
+  text-align: center;
+
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+
+  .time {
+    color: #cfaf58;
+    font-size: 32px;
+    @include pt_sans_narrow(bold);
+    display: inline-block;
+    line-height: 1.2em;
+    padding: 0 10px; 
   }
+
+  .settings {
+    display: inline-block; 
+    background: url('#{ $base_url }images/settings.png') no-repeat 0 0;
+    width: 22px;
+    height: 22px;
+  }
+
+  .head {
+    background: #03a7a1;
+    color: #fff;
+  }
+}
