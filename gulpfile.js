@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var watch = require('gulp-watch');
 
-// var connect = require('gulp-connect');
+var connect = require('gulp-connect');
 // var open = require('gulp-open');
 var jade = require('gulp-jade');
 var sass = require('gulp-sass');
@@ -12,7 +12,11 @@ var concat = require('gulp-concat');
 // var rev = require('gulp-rev');
 var plumber = require('gulp-plumber');
 var wrap = require("gulp-wrap");
+var preprocess = require('gulp-preprocess');
 // var useref = require('gulp-useref');
+
+var pem = require('pem');
+var cors = require('cors');
 
 var Project = {
   build: { path: './build' },
@@ -39,22 +43,29 @@ Project.build.images = Project.build.path + '/images';
 Project.build.templates = Project.build.path;
 
 
+var server_options = {
+  root: Project.build.path,
+  livereload: true,
+  port: 8888,
+  https: true,
+  middleware: function() {
+    return [cors()];
+  },
+};
 
-var port = 8888;
+var DEV_SERVER_URL =  '//localhost:' + server_options.port + '/';
 
+gulp.task('server', function() {
+  pem.createCertificate({days:1, selfSigned:true}, function(err, keys){
+    server_options.key = keys.serviceKey; 
+    server_options.cert = keys.certificate;
+    connect.server(server_options);
+  });
 
-
- 
-// gulp.task('server', function() {
-//   connect.server({
-//     root: Project.build.path,
-//     livereload: true,
-//     port: port
-//   });
-
+  // connect.server(server_options);
 //   gulp.src(Project.build.index)
-//     .pipe(open('', { url: 'http://localhost:' + port }));
-// });
+//     .pipe(open('', { url: DEV_SERVER_URL }));
+});
 
 
 
@@ -103,6 +114,7 @@ gulp.task('client_templates', function() {
 
 gulp.task('sass', function () {
   gulp.src(Project.src.styles)
+    .pipe(preprocess({context: { DEV_SERVER: DEV_SERVER_URL }}))
     .pipe(sass.sync().on('error', sass.logError))
     // .pipe(prefix("last 3 version", "> 1%", "ie 8"))
     .pipe(gulp.dest(Project.build.styles));
@@ -163,4 +175,4 @@ gulp.task('deploy', function() {
 
 gulp.task('build', ['scripts', 'sass', 'copy_static', 'jade']);
 
-gulp.task('default', [ 'build', 'watch']);
+gulp.task('default', [ 'build', 'watch', 'server']);
