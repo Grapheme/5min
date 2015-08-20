@@ -7,8 +7,6 @@ $base_url: '/* @echo DEV_SERVER */';
 #smart_reminder {
   @import 'content/timer';
   @import 'content/settings';  
+  @import 'content/congratulations';  
+  @import 'content/confirm';  
 }
-
-
-
-

@@ -1,10 +1,19 @@
 & {
+
+  @include font_rendering;
+  
   position: fixed;
   z-index: 9000;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  font-size: 20px;
+
+  em {
+    font-style: normal;
+    font-weight: bold;
+  }
 
   .bg {
     background: #000;
@@ -16,7 +25,9 @@
   }
 
   .block {
-    background: #fff;
+    background: #4f5554;
+    color: #eeeeee;
+    text-align: center;
     position: relative;
     z-index: 2;
     left: 50%;
@@ -25,6 +36,32 @@
     width: 800px;
     min-height: 100px;
     box-shadow: 5px 5px 18px #111;
+    padding-bottom: 10px;
+
+    .wrapper {
+      background: #fff;
+    }
+
+
+    .head1 {
+      font-size: 44px;
+      @include pt_sans_narrow(bold);
+      padding-top: 45px;
+      padding-bottom: 7px;
+      background: #fff;
+      color: #5ca9a4;
+    }
+
+    .head2 {
+      font-size: 27px;
+      padding-bottom: 30px;
+      color: #4f5554;
+      @include georgia;
+      font-size: 27px;
+      
+
+    }  
+    
 
     .close {
       position: absolute;
@@ -33,6 +70,148 @@
       width: 40px;
       height: 40px;
       background: url('#{ $base_url }images/cross.png') no-repeat center center;
+    }
+
+    .progress {
+      background: #eeeeee;
+      height: 36px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 10px 70px;
+      position: relative;
+
+      .progress-bar {
+        position: absolute;
+        height: 100%;
+        background: url('#{ $base_url }images/progress_bg.png');
+        z-index: 1;
+      }
+
+      .label {
+        @include pt_sans_narrow(bold);
+        font-size: 16px;
+        color: #4f5554;
+        text-align: center;
+        line-height: 36px;
+        position: relative;
+        z-index: 2;
+      }
+    }
+
+    .half-grey {
+      background: linear-gradient(#ffffff 50%, #4f5554 50%);
+
+    }
+
+    .tr-block {
+      margin: 20px 70px 10px;
+      
+      @include pt_sans_narrow;
+      font-size: 22px;
+      color: #5ca9a4;
+      border: 3px solid #5ca9a4;
+      background: #fff;
+      padding: 25px;
+      position: relative;
+
+
+      &:before, &:after {
+        content: '';
+        display: block;
+        position: absolute;
+
+        left: 50%;
+        transform: translate(-50%, 0%);
+
+        bottom: 100%;
+        width: 0;
+        height: 0;
+        border-style: solid;
+      }
+
+      &:before {
+        @include triangle(35px, 15px, #5ca9a4);
+      }
+
+      &:after {
+        @include triangle(28px, 12px, #fff);
+        transform: translate(-50%, 5%);
+      }
+
+      a { 
+        color: #5ca9a4;
+      }
+    }
+
+    .button {
+      box-sizing: border-box;
+
+      cursor: pointer;
+      -webkit-user-select: none;
+
+
+      color: #fff;
+      @include pt_sans_narrow(bold);
+      font-size: 27px;
+      line-height: 1.05em;
+      border-radius: 5px;
+      display: inline-block;
+
+      width: 320px;
+      height: 70px;
+      
+      padding: 0 20px;
+
+      text-transform: uppercase;
+      text-align: center; 
+
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+      // flex-direction: row;
+
+      .wr {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      
+      &.small {
+        height: 50px;
+        font-size: 20px;
+        width: auto;
+        padding: 0 25px;
+        border-radius: 3px;
+      }
+
+
+      .small {
+        display: block;
+        font-size: 16px;
+        padding: 0;
+        line-height: 16px;
+      }
+
+      &.green {
+          background: #5ca9a4;
+
+        &.facebook {
+          .i {
+            display: inline-block;
+            background: url("#{ $base_url }images/facebook.png") no-repeat center;
+            width: 20px; 
+            height: 30px; 
+            vertical-align: bottom;
+
+            margin-right: 10px;
+          }
+
+        }
+      }
+      &.red {
+        background: #de5756;
+
+      }
     }
   }
 }
