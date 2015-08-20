@@ -9,8 +9,13 @@
     "persistent": false
   },
 
-  "permissions": [
-    "*://*.vk.com/*", "*://*.facebook.com/*"
+  "permissions": [ 
+    "storage",
+    "alarms",
+
+    "*://localhost/*",
+    // "*://*.vk.com/*", 
+    "*://*.facebook.com/*" 
   ],
 
   "browser_action": {
@@ -19,13 +24,19 @@
     "default_title": "Smart Reminder"
   },
 
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "content_security_policy": "script-src 'self'; object-src 'self'",
   "content_scripts": [
     {
-      "matches": ["*://*.vk.com/*", "*://*.facebook.com/*"],
+      "matches": [
+        "*://localhost/*",
+        // "*://*.vk.com/*",
+        "*://*.facebook.com/*"
+      ],
+      
       "css": [
         "styles/content.css"
       ],
+      
       "js": [
         "scripts/vendor/jquery.min.js",
         "scripts/vendor/jade-runtime.js",

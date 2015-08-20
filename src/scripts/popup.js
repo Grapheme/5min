@@ -1,7 +1,6 @@
 $(function() {
-  // $('button').click(function(e){
-  //   e.preventDefault();
-  //   chrome.extension.sendMessage({type: "hello", msg: 'Привет Говно!'});
+  // $('.arrow.left').click(function(e){
+  //   chrome.runtime.sendMessage({ message: 'onInstall'});
   // });
   
   SmartReminder.slider({ el: $('.sr-slider'), pageSize: 2 });

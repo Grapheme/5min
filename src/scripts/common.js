@@ -31,7 +31,7 @@ SmartReminder.block = function block(id, events, data) {
   var b = {};
   b.template = window.___sr_templates[id];
   b.element = $('<div id="smart_reminder__'+ id +'"></div');  
-  $.each(events, function(event_selector, func) {
+  $.each(events || {}, function(event_selector, func) {
     var selector = event_selector.split(/\s+/);
     var event = selector.shift();
     var args = [event];
