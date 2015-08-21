@@ -1,7 +1,8 @@
-- var m = Math.floor(time / 60);
-- var s = time % 60;
+- data = (data || {});
+- var m = Math.floor(Math.abs(data.time) / 60);
+- var s = Math.abs(data.time) % 60;
 .head
   | Smart Reminder
   .toggle
-.time #{ m < 10 ? '0'+ m : m }<span class="sep">:</span>#{ s < 10 ? '0'+ s : s   }
+.time #{ data.time < 0 ? '-' : '' }#{ m < 10 ? '0'+ m : m }<span class="sep">:</span>#{ s < 10 ? '0'+ s : s   }
 .settings

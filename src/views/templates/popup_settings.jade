@@ -1,3 +1,8 @@
+- data = (data || {});
+- var stats = data.stats || []
+- var m = Math.round(stats.reduce(function(a,b) { return a+b;}) / 60);
+- var b = Math.round(m / 30 * 10) / 10
+
 .wrapper
   .head1 Настройки
   .head2 и статистика эксперимента
@@ -5,7 +10,7 @@
 .total_time.row
   .text Сколько минут ты провел в Facebook за время эксперимента?
   .num 
-    span 100000
+    span= m
     .units мин
 
 .total_books.row
@@ -13,7 +18,7 @@
     | За это время ты бы прочитал 
     span.secondary (книг в нашей библиотеки)
   .num
-    span 100000
+    span= b
     .units книг
 
 .details
@@ -22,8 +27,15 @@
     .arrow.left
     .arrow.right
     .container
+      each d in stats
+        .item.active(today)
+          .text 
+            | Пн
+            |, 
+            | 24.05
+          .num 
+            |00
+            |:
+            |00
 
-      .item.active
-        .text Пн, 24.05 #{ items }
-        .num 0000:00
-        .units мин/сек
+          .units мин/сек

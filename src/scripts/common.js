@@ -27,27 +27,78 @@ SmartReminder.slider = function slider (options) {
   return options;
 };
 
+SmartReminder.blockClass = function() {};
+SmartReminder.blockClass.prototype = {
+  mapEvents: function(events) {
+    $.each(events || {}, function(event_selector, func) {
+      var selector = event_selector.split(/\s+/);
+      var event = selector.shift();
+      var args = [event];
+      if (selector.length) args.push(selector.join(' '));
+      args.push(func.bind(this));
+      this.element.on.apply(this.element, args);
+    }.bind(this));
+
+  },
+  show: function() {
+    this.element.show();
+  },
+
+  hide: function() {
+    this.element.hide();
+  },
+  shown: function() {
+    return this.element.is(':visible');
+  },
+
+  prepareData: function(data) { 
+    return data;
+  },
+
+  render: function(data) {
+    if (!data) data = {};
+    this.data = this.prepareData(data);
+    this.element.html(this.template(this.data));
+    return this;
+  }
+
+};
+
 SmartReminder.block = function block(id, events, data) {
-  var b = {};
+  var b = new SmartReminder.blockClass();
   b.template = window.___sr_templates[id];
   b.element = $('<div id="smart_reminder__'+ id +'"></div');  
-  $.each(events || {}, function(event_selector, func) {
-    var selector = event_selector.split(/\s+/);
-    var event = selector.shift();
-    var args = [event];
-    if (selector.length) args.push(selector.join(' '));
-    args.push(func.bind(b));
-    b.element.on.apply(b.element, args);
-  });
-
-  b.render = function(data) {
-    if (!data) data = {};
-    this.element.html(this.template(data));
-    return this;
-  };
-  
+  b.hide(); 
+  b.mapEvents(events);  
   b.render(data);
   $('body').append(b.element);
-
   return b;
+};
+
+
+
+SmartReminder.date = {};
+
+SmartReminder.date.ms = {
+  dayLong: 24 * 60 * 60 * 1000,
+
+  day: function (date) {
+    return (new Date(date)).setHours(0,0,0,0).valueOf();
+  },
+
+  today: function () {
+    return this.day(Date.now());
+  },
+
+  diffDays: function(date, count) {
+    return Number(date) + count * this.dayLong;
+  },
+
+  yesterday: function () {
+    return this.diffDays(this.today(), -1);
+  },
+
+  tomorrow: function () {
+    return this.diffDays(this.today(), +1);
+  } 
 };

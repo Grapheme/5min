@@ -7,44 +7,48 @@
 extends ./_window.jade
 
 block vars
-  if share
+  - data = (data || {});
+
+  if data.share
     - className = 'share'
 
-  if day
+  if data.day
     - className = 'day'
 
-  if day == 3
+  if data.day == 3
     - className = 'day day3'
+
 
 
 block content
   .wrapper
     .head1 Поздравляем!
 
-    if install
+    if data.install
       .head2 Счетчик установлен. Счетчик автоматически запустится <br>при следующем посещении Facebook
 
-    if day == 1
+    if data.day == 1
       .head2 Вчера вы победили прокрастинацию.
       .half-grey
         .tr-block Осталось 2 дня и вы сможете месяц бесплатно читать <br>саммари на <a href="#">smartreading.ru</a>! 
 
-    if day == 2
+    if data.day == 2
       .head2 Вчера вы победили прокрастинацию.
       .half-grey
         .tr-block Еще 1 день и вы сдержите свое обещание не больше 5 минут в день <br>на facebook! Бесплатный доступ на месяц в библиотеку полезных книг <br>в кратком изложении <a href="#">smartreading.ru</a> ждет вас!
 
-    if day == 3
+    if data.day == 3
       .head2 Вы умеете ценить время и управлять прокрастинацией! 
       .half-grey
         .tr-block Поделитесь с друзьями своей победой и получите свою награду на <a href="#">smartreading.ru</a>
 
-    if share
+    if data.share
       .head2 Ваш персональный промокод для получения <br>бесплатного доступа к пользованию библиотекой <br>лучших саммари Smart Reading:
       .promocode
-        input
-        .button.red.small
-          .wr скопировать
+        input(value="#{ data.code }")
+        if data.clipboardSupport
+          .button.red.small.copy
+            .wr скопировать
     
       .half-grey
         .button.green
@@ -52,10 +56,10 @@ block content
 
 
 
-  if install
+  if data.install
     .text Сформируй полезную привычку и избавься <br>от прокрастинации!
 
-  if day == 3
+  if data.day == 3
     .button.green.facebook 
       .wr 
         .i

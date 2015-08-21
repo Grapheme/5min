@@ -11,10 +11,10 @@
 
   "permissions": [ 
     "storage",
-    "alarms",
+    "tabs",
 
     "*://localhost/*",
-    // "*://*.vk.com/*", 
+    "*://*.vk.com/*",
     "*://*.facebook.com/*" 
   ],
 
@@ -29,7 +29,7 @@
     {
       "matches": [
         "*://localhost/*",
-        // "*://*.vk.com/*",
+        "*://*.vk.com/*",
         "*://*.facebook.com/*"
       ],
       
@@ -40,6 +40,8 @@
       "js": [
         "scripts/vendor/jquery.min.js",
         "scripts/vendor/jade-runtime.js",
+        "scripts/vendor/indexeddb.shim.min.js",
+        "scripts/vendor/dexie.min.js",
         "templates.concat.js",
         "scripts/common.js",
         "scripts/content.js"
