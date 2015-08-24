@@ -1,5 +1,5 @@
 @import 'variables';
-$base_url: '/* @echo DEV_SERVER */';
+$base_url: 'EXTENSION_PATH';
 
 @import 'fonts';
 @import 'mixins';

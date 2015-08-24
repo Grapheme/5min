@@ -14,7 +14,7 @@
     "tabs",
 
     "*://localhost/*",
-    "*://*.vk.com/*",
+    // "*://*.vk.com/*",
     "*://*.facebook.com/*" 
   ],
 
@@ -25,20 +25,21 @@
   },
 
   "content_security_policy": "script-src 'self'; object-src 'self'",
+
   "content_scripts": [
     {
       "matches": [
         "*://localhost/*",
-        "*://*.vk.com/*",
+        // "*://*.vk.com/*",
         "*://*.facebook.com/*"
       ],
       
       "css": [
-        "styles/content.css"
+        // "styles/content.css"
       ],
       
       "js": [
-        "scripts/vendor/jquery.min.js",
+        "scripts/vendor/jquery.js",
         "scripts/vendor/jade-runtime.js",
         "scripts/vendor/indexeddb.shim.min.js",
         "scripts/vendor/dexie.min.js",
@@ -47,5 +48,10 @@
         "scripts/content.js"
       ]
     }
+  ],
+
+  "web_accessible_resources": [
+    "images/*",
+    "fonts/*"
   ]
 }

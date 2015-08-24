@@ -14,11 +14,22 @@ $(window).on('blur', function() {
 
 
 // !!! chrome specific
-chrome.runtime.sendMessage({ message: 'listenFocusChange' });
+var tabId;
+chrome.runtime.sendMessage({ message: 'listenFocusChange' }, function(id) { tabId = id; });
 chrome.runtime.onMessage.addListener(function(message) {
   windowInactive = message.focus;
 });
 
+
+// var Manifest = chrome.runtime.getManifest();
+// console.log('sdsd', Manifest);
+chrome.runtime.sendMessage({ message: 'getFile', path: 'styles/content.css' }, function(file) {
+  var css = file.replace(/EXTENSION_PATH([^\"]*)/gm, function (m, m1) {
+    return chrome.runtime.getURL(m1);
+  });
+
+  chrome.runtime.sendMessage({ message: 'insertCSS', css: css }, function() {});
+});
 
 
 var timer = SmartReminder.block('timer', {
@@ -76,8 +87,8 @@ var windowEvents = {
 var settings = SmartReminder.block('settings', $.extend(windowEvents, { }));
 settings.hide();
 settings.show = function() {
-  db.stats.toArray().then(function (data) {
-    this.render({ data: { days: data }});
+  chrome.storage.local.get({ stats: [], test: 0 }, function(data) {
+    this.render({ data: data });
     this.element.show();
   }.bind(this));
 };
@@ -232,22 +243,22 @@ function sync() {
 
 
 Dexie.Promise.all(db.stats.yesterday(), db.stats.today(), db.editSettings()).then(function(results) {
-  console.log('?', results);
-
-  var yesterday = results[0];
-  var today = results[1];
-  var settings = results[2];
-
-  if (today) {
+  // console.log('?', results);
+  
+  var yesterday = results[0] || {};
+  var today = results[1] || {};
+  var settings = results[2] || {};
+  
+  if (today.time) {
     timer.start();
   } else {
-    if (yesterday && yesterday.time < TIME_PER_DAY) {
+    if (yesterday.time && yesterday.time < TIME_PER_DAY) {
       congratulations.render({ data: { day: yesterday.day }});
       congratulations.show();
       if (yesterday.day != 3) {
         db.stats.createToday({ time: 0, day: yesterday.day + 1 }).then(function() {
           timer.start();  
-        });  
+        });
       }
     } else {
       if (!settings.askNext || settings.askNext < SmartReminder.date.ms.today()) {
