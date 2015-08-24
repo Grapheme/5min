@@ -1,8 +1,9 @@
 - data = (data || {});
-- var m = Math.floor(Math.abs(data.time) / 60);
-- var s = Math.abs(data.time) % 60;
+- var leadZero = function (s) { return Math.abs(s) < 10 ? '0'+ s : s }
+- var time = function(t) { var m = Math.floor(Math.abs(data.time) / 60); var s = Math.abs(data.time) % 60; return leadZero(m) + '<span class="sep">:</span>' + leadZero(s); }
+
 .head
   | Smart Reminder
   .toggle
-.time #{ data.time < 0 ? '-' : '' }#{ m < 10 ? '0'+ m : m }<span class="sep">:</span>#{ s < 10 ? '0'+ s : s   }
+.time #{ data.time < 0 ? '-' : '' }!{ time(data.time) }
 .settings
