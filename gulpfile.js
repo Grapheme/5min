@@ -39,7 +39,7 @@ Project.src.images = Project.src.path + '/images/**/*';
 
 Project.src.templates = Project.src.path + '/views/templates/**/*';
 
-Project.src.static = [Project.src.fonts, Project.src.images];
+Project.src.static = [Project.src.fonts, Project.src.images, Project.src.path + '/*.json'];
 
 Project.build.views = Project.build.path;
 Project.build.index = Project.build.views + '/index.html';
@@ -52,12 +52,12 @@ Project.build.templates = Project.build.path;
 
 var server_options = {
   root: Project.build.path,
-  livereload: true,
-  port: 8888,
-  https: true,
-  middleware: function() {
-    return [cors()];
-  },
+  // livereload: true,
+  // port: 8888,
+  // https: true,
+  // middleware: function() {
+  //   return [cors()];
+  // },
 };
 
 var DEV_SERVER_URL =  '//localhost:' + server_options.port + '/';
