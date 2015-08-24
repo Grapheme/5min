@@ -25,6 +25,7 @@
     border: 1px solid #fff;
     float: right;
     margin: 6px 5px 0 0;
+    cursor: pointer;
   }
 
   &.hidden-block {
@@ -58,6 +59,7 @@
     background: url('#{ $base_url }images/settings.png') no-repeat center center;
     width: 22px;
     height: 22px;
+    cursor: pointer;
   }
 
   .head {
