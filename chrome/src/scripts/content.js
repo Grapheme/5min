@@ -18,6 +18,7 @@ var tabId;
 chrome.runtime.sendMessage({ message: 'listenFocusChange' }, function(id) { tabId = id; });
 chrome.runtime.onMessage.addListener(function(message) {
   windowInactive = message.focus;
+  console.log(message);
 });
 
 
@@ -50,20 +51,37 @@ timer.start = function() {
     timer.element.slideDown();
   }, 950);
   
-  this.timerId = setInterval(function() { 
-    var paused = settings.shown() || congratulations.shown() || confirm.shown() || windowInactive;
-    if (paused) return; 
-
-    db.stats.today(function(today) {
-      today.time++;
-
-      if (today.time >= TIME_PER_DAY) {
-        confirm.render({ data: { day: today.day }});
-        confirm.show();
-      }
+  var timerPaused = function() {
+    return settings.shown() ||
+            congratulations.shown() || 
+            confirm.shown() || 
+            windowInactive
+  }
+  
+  db.stats.today(function(today) {
+    timer.render({ data: { time: TIME_PER_DAY - today.time }});
     
+    if (today.time >= TIME_PER_DAY) {
+      confirm.render({ data: { day: today.day }});
+      confirm.show();
+    }
+    
+  })
+  
+  function onTimer(){
+    db.stats.today(function(today) {
+      
+      if (!timerPaused()){
+        //console.log(today.time)
+        today.time++;
+      }
     });
+  }
+  
+  this.timerId = setInterval(function() { 
+    onTimer();
   }, 1000);
+  
 };
 
 timer.stop = function() {
@@ -131,6 +149,7 @@ var confirm = SmartReminder.block('confirm', $.extend(windowEvents, {
       });
       this.hide();
     } else {
+      //timer.stop();
       location.href = REDIRECT_URL;
     }
   },
@@ -223,8 +242,9 @@ db.editSettings = function(dataOrFunc) {
 db.open()
   .catch(function(error){ console.log('Uh oh : ' + error); });
 
-//db.stats.clear();
-//db.settings.clear();
+  db.stats.clear();
+  db.settings.clear();
+
 
 db.settings.get('main', function(data) {
   if (!data) db.settings.add({ id: 'main' });
@@ -237,7 +257,9 @@ db.stats.hook('creating', function (id, obj) {
 
 db.stats.hook('updating', function(mods, id, obj) {
   if (isToday(obj)) {
-    timer.render({ data: { time: TIME_PER_DAY - mods.time }});
+    if (mods.time) {
+      timer.render({ data: { time: TIME_PER_DAY - mods.time }});      
+    }
   }
 
   sync();
@@ -267,12 +289,14 @@ Dexie.Promise.all(db.stats.yesterday(), db.stats.today(), db.editSettings()).the
   } else {
     if (yesterday.time && yesterday.time < TIME_PER_DAY) {
       congratulations.render({ data: { day: yesterday.day }});
-      congratulations.show();
-      if (yesterday.day != 3) {
+      if (yesterday.day < 4) {
+        congratulations.show();          
+      }
+      //if (yesterday.day != 3) {
         db.stats.createToday({ time: 0, day: yesterday.day + 1 }).then(function() {
           timer.start();  
         });
-      }
+      //}
     } else {
       if (!settings.askNext || settings.askNext <= SmartReminder.date.ms.today()) {
         confirm.render({ data: { start: true }});

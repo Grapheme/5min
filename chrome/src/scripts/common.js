@@ -4,16 +4,18 @@ SmartReminder.slider = function slider (options) {
   if (!options.pageSize) options.pageSize = 1;
   options.container = options.el.find('.container');
   options.items = options.container.find('.item');
-  options.currentItem = options.items.index(options.items.filter('.today'));
+  options.todayItem = options.items.index(options.items.filter('.today'));
+  options.currentItem = 0;
+  
+  options.visibleItems = parseInt(options.el.width()/options.items.outerWidth());
+  
+  if (options.todayItem >= options.visibleItems) {
+    options.currentItem = options.todayItem-options.visibleItems+1;
+  }
   
   options.move = function (index) {
     
-    //options.el.find('.arrow').removeClass('disabled');
-    
-    if (index > this.items.length - 1) {
-      index = 0;
-      //options.el.find('.arrow.right').addClass('disabled');
-    };
+    if (index > this.items.length - 1) index = 0;
     if (index < 0) index = 0;
     
     if (index == 0) {
