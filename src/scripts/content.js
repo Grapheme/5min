@@ -90,6 +90,9 @@ settings.show = function() {
   chrome.storage.local.get({ stats: [], test: 0 }, function(data) {
     this.render({ data: data });
     this.element.show();
+    
+    SmartReminder.slider({ el: $('.sr-slider'), pageSize: 2 });
+
   }.bind(this));
 };
 
@@ -119,8 +122,8 @@ congratulations.prepareData = function(data) {
 // congratulations.render({ data: { install: true }});
 
 
-
 var confirm = SmartReminder.block('confirm', $.extend(windowEvents, {
+  
   'click .button.green': function() {
     if (this.data.data.start) {
       db.stats.createToday({ time: 0, day: 1}).then(function() {
@@ -132,13 +135,18 @@ var confirm = SmartReminder.block('confirm', $.extend(windowEvents, {
     }
   },
 
+  
   'click .button.red': function() {
     db.editSettings(function(settings) {
       settings.askNext = SmartReminder.date.ms.tomorrow();
     });
-    
+
     this.hide();
   },
+  
+  'click .bg': function(){},
+  'click .close': function(){}
+  
 }));
 
 
@@ -150,6 +158,7 @@ confirm.show = function() {
     }
 
     this.element.show();
+    this.element.find('.close').hide();
   }.bind(this));
 };
 
@@ -165,6 +174,8 @@ db.version(1).stores({
   settings: '&id'
 });
 
+  
+  
 function isToday (item) {
   return item.id == SmartReminder.date.ms.today();
 }
@@ -212,9 +223,8 @@ db.editSettings = function(dataOrFunc) {
 db.open()
   .catch(function(error){ console.log('Uh oh : ' + error); });
 
-// db.stats.clear();
-// db.settings.clear();
-
+//db.stats.clear();
+//db.settings.clear();
 
 db.settings.get('main', function(data) {
   if (!data) db.settings.add({ id: 'main' });
@@ -249,6 +259,9 @@ Dexie.Promise.all(db.stats.yesterday(), db.stats.today(), db.editSettings()).the
   var today = results[1] || {};
   var settings = results[2] || {};
   
+  console.log(yesterday, today, settings)
+  console.log(SmartReminder.date.ms.today())
+  
   if (today.time) {
     timer.start();
   } else {
@@ -261,13 +274,12 @@ Dexie.Promise.all(db.stats.yesterday(), db.stats.today(), db.editSettings()).the
         });
       }
     } else {
-      if (!settings.askNext || settings.askNext < SmartReminder.date.ms.today()) {
+      if (!settings.askNext || settings.askNext <= SmartReminder.date.ms.today()) {
         confirm.render({ data: { start: true }});
         confirm.show();
       }
     }
   }
 });
-
 
 });

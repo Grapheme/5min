@@ -31,3 +31,9 @@ body {
 }
 
 @import 'partial/settings';
+
+.sr-slider {
+  .item {
+    min-width: 93px;
+  }
+}

@@ -4,26 +4,61 @@ SmartReminder.slider = function slider (options) {
   if (!options.pageSize) options.pageSize = 1;
   options.container = options.el.find('.container');
   options.items = options.container.find('.item');
-  options.currentItem = 0;
-
+  options.currentItem = options.items.index(options.items.filter('.today'));
+  
   options.move = function (index) {
-    if (index > this.items.length - 1) index = 0;
+    
+    //options.el.find('.arrow').removeClass('disabled');
+    
+    if (index > this.items.length - 1) {
+      index = 0;
+      //options.el.find('.arrow.right').addClass('disabled');
+    };
     if (index < 0) index = 0;
+    
+    if (index == 0) {
+      options.el.find('.arrow.left').addClass('disabled');
+    } else {
+      options.el.find('.arrow.left').removeClass('disabled');
+    }
 
     this.currentItem = index;
     this.items.removeClass('active');
     this.items.eq(this.currentItem).addClass('active');
     var scrollTo = this.currentItem;
-    if (this.items.length - this.currentItem < this.pageSize) scrollTo = this.items.length - this.pageSize;
+    //if (this.items.length - this.currentItem < this.pageSize) scrollTo = this.items.length - this.pageSize;
     var pos = this.items.eq(scrollTo).position().left;
-    this.container.stop().animate({ left: -pos });
+    this.container.stop().animate({ left: -pos }, function(){
+      var _slider = options.el.width()+options.el.offset().left;
+      var _cont = options.container.offset().left + options.container.width();
+      
+      if (_slider > _cont) {
+        options.el.find('.arrow.right').addClass('disabled');
+      } else {
+        options.el.find('.arrow.right').removeClass('disabled');
+      };
+    });
+    
+    var _slider = options.el.width()+options.el.offset().left;
+    var _cont = options.container.offset().left + options.container.width();
+
+    if (_slider > _cont) {
+      options.el.find('.arrow.right').addClass('disabled');
+    } else {
+      options.el.find('.arrow.right').removeClass('disabled');
+    };
+    
   };
 
   options.el.find('.arrow').click(function(e) {
     var left = $(e.target).is('.left');
-    this.move(left ? (this.currentItem - 1) : (this.currentItem + 1));
+    if (!$(e.target).is('.disabled')) {
+      this.move(left ? (this.currentItem - 1) : (this.currentItem + 1));      
+    }
   }.bind(options));
-
+  
+  options.move(options.currentItem);
+  
   return options;
 };
 

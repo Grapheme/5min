@@ -33,7 +33,9 @@
     .arrow.right
     .container
       each d in stats
-        .item.active(class = "#{ today(d.id) }")
+        .item(class = "#{ today(d.id) }")
           .text #{ dayDate(d.id) }
-          .num #{ d.time < 0 ? '-' : '' }!{ time(d.time) }
+          center
+            - var over = (d.time > 300 ? 'num over' : 'num')
+            div(class=over) #{ d.time < 0 ? '-' : '' }!{ time(d.time) }
           .units  мин/сек
