@@ -1,0 +1,64 @@
+&__congratulations {
+  @import 'window';
+
+  .block {
+
+    &.share, &.day {
+      padding-bottom: 80px;
+    }
+
+    &.day3 {
+      padding-bottom: 40px; 
+
+      .button.green {
+        display: block;
+        margin: 0 70px;
+      }
+    }
+
+    .head2 {
+      font-size: 24px;
+      // font-size: 27px;
+      color: #5ba7a0;
+      padding: 0 0 24px;
+      margin-bottom: 0;
+    }  
+    
+    .text {
+      color: #fff;
+      font-size: 26px;
+      @include georgia;
+      padding: 30px;
+    }
+
+    .promocode {
+      display: table;
+      padding: 0px 10px 20px; 
+      margin: 0 auto 0;
+
+      input {
+        vertical-align: middle;
+        background: #ebebeb;
+        border: 1px solid #959595;
+        border-radius: 3px;
+        padding: 10px 15px;
+        @include pt_sans_narrow();
+        font-size: 22px;
+        text-align: center;
+
+        margin-right: 20px; 
+      }
+
+      .button {
+        vertical-align: middle;
+      }
+    }
+
+    
+    .button.green {
+      width: auto;
+      padding: 0 50px;
+      margin-bottom: 3px; 
+    }
+  }
+}

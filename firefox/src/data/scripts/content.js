@@ -15,15 +15,18 @@ $(window).on('blur', function() {
 
 // !!! chrome specific
 var tabId;
+/*
 chrome.runtime.sendMessage({ message: 'listenFocusChange' }, function(id) { tabId = id; });
 chrome.runtime.onMessage.addListener(function(message) {
   windowInactive = message.focus;
   console.log(message);
 });
-
+*/
 
 // var Manifest = chrome.runtime.getManifest();
 // console.log('sdsd', Manifest);
+
+/*
 chrome.runtime.sendMessage({ message: 'getFile', path: 'styles/content.css' }, function(file) {
   var css = file.replace(/EXTENSION_PATH([^\"]*)/gm, function (m, m1) {
     return chrome.runtime.getURL(m1);
@@ -31,6 +34,7 @@ chrome.runtime.sendMessage({ message: 'getFile', path: 'styles/content.css' }, f
 
   chrome.runtime.sendMessage({ message: 'insertCSS', css: css }, function() {});
 });
+*/
 
 
 var timer = SmartReminder.block('timer', {
@@ -74,11 +78,6 @@ timer.start = function() {
       if (!timerPaused()){
         //console.log(today.time)
         today.time++;
-      }
-      
-      if (today.time >= TIME_PER_DAY) {
-        confirm.render({ data: { day: today.day }});
-        confirm.show();
       }
     });
   }
@@ -186,6 +185,7 @@ confirm.show = function() {
   }.bind(this));
 };
 
+console.log($.fn.jquery);
 
 Dexie.Promise.on('error', function(err) {
     // Log to console or show en error indicator somewhere in your GUI...
@@ -295,7 +295,7 @@ Dexie.Promise.all(db.stats.yesterday(), db.stats.today(), db.editSettings()).the
   if (today.time) {
     timer.start();
   } else {
-    if (yesterday.time && yesterday.time <= TIME_PER_DAY) {
+    if (yesterday.time && yesterday.time < TIME_PER_DAY) {
       congratulations.render({ data: { day: yesterday.day }});
       if (yesterday.day < 4) {
         congratulations.show();          

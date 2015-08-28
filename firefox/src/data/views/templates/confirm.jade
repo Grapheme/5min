@@ -1,0 +1,56 @@
+//- состояния:
+//- start - запусти таймер
+//- day - какой сейчас день, 1,2,3
+
+extends ./_window.jade
+
+
+block content
+  - var totalDays = 3;
+  - data = (data || {});
+  
+  .wrapper
+
+    if data.start
+      .head1 Запустите таймер
+      .head2 и контролируйте время, потраченное на Facebook!
+
+    if data.day
+      .head1 Помните,
+      .head2 вы обещали не более 5 минут в день на Facebook?
+      .progress
+        .progress-bar(style="width: #{ Math.round(data.day / totalDays * 100) }%") 
+        .label #{ data.day }/#{ totalDays }
+    
+    if data.start
+      .half-grey
+        .tr-block Сможете проводить не более 5 минут в день на Facebook всего 3 дня? Тогда вас ждет награда -месяц бесплатного доступа в онлайн-библиотеку саммари полезных книг smartreading.ru! 
+    
+    if data.day
+
+      .half-grey 
+        .tr-block
+          | Осталось 
+          if data.day == 1
+            | <em>2 дня</em> 
+          if data.day == 2
+            | <em>1 день</em> 
+          if data.day == 3
+            | день до конца 
+          | и вы сможете месяц бесплатно <br>читать саммари на <a href="#">smartreading.ru</a>!
+
+  if data.start    
+    .button.green 
+      .wr Запустить таймер
+    .button.red
+      .wr Начну завтра
+
+  if data.day
+    .button.green
+      .wr
+        | Закрыть Facebook 
+        span.small и почитать книгу на Smartreading.ru
+
+    .button.red
+      .wr Продолжить<br> прокрастинировать
+

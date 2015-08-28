@@ -1,0 +1,12 @@
+@import 'variables';
+$base_url: '../';
+
+@import 'fonts';
+@import 'mixins';
+
+#smart_reminder {
+  @import 'content/timer';
+  @import 'content/settings';  
+  @import 'content/congratulations';  
+  @import 'content/confirm';  
+}

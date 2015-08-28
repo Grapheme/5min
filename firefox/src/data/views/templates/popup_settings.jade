@@ -1,0 +1,41 @@
+- data = (data || {});
+- var stats = data.stats || []
+- var leadZero = function (s) { return Math.abs(s) < 10 ? '0'+ s : s }
+- var totatMinutes = Math.floor(stats.reduce(function(a,b) { return { time: a.time + b.time }}, { time: 0 }).time / 60);
+- var totalBooks = Math.round(totatMinutes / 30 * 10) / 10
+- var time = function(t) { var m = Math.floor(Math.abs(t) / 60); var s = Math.abs(t) % 60; return leadZero(m) + '<span class="sep">:</span>' + leadZero(s) }
+- var dayNames = 'Вс Пн Вт Ср Чт Пт Сб'.split(' ')
+- var dayDate = function(datetime) { var d = new Date(datetime); return dayNames[d.getDay()] + ', ' + leadZero(d.getDate()) + '.' + leadZero(1 + d.getMonth()); }
+- var today = function(day) { console.log(datetime); return SmartReminder.date.ms.today() == day ? 'today' : ''; }
+
+.wrapper
+  .head1 Настройки
+  .head2 и статистика эксперимента
+
+.total_time.row
+  .text Сколько минут ты провел в Facebook за время эксперимента?
+  .num 
+    span= totatMinutes
+    .units мин
+
+.total_books.row
+  .text 
+    | За это время ты бы прочитал 
+    span.secondary (книг в нашей библиотеки)
+  .num
+    span= totalBooks
+    .units книг
+
+.details
+  .text Сколько минут каждый день ты проводишь в facebook?
+  .sr-slider
+    .arrow.left
+    .arrow.right
+    .container
+      each d in stats
+        .item(class = "#{ today(d.id) }")
+          .text #{ dayDate(d.id) }
+          center
+            - var over = (d.time > 300 ? 'num over' : 'num')
+            div(class=over) #{ d.time < 0 ? '-' : '' }!{ time(d.time) }
+          .units  мин/сек

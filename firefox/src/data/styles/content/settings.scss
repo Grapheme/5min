@@ -1,0 +1,81 @@
+&__settings {
+  @import 'window';
+  @import '../partial/settings';
+
+
+  .block {
+    .head1 {
+      padding-bottom: 0px;
+    }
+
+    padding-bottom: 0;
+  }
+
+  // .wrapper {
+
+    // padding: 20px 50px 40px;
+
+  .row {
+    overflow: hidden;
+    vertical-align: bottom;
+    padding: 0 40px;
+    margin-top: -5px;
+
+
+    &:before {
+      display: block;
+      content: '';
+      position: absolute;
+      // width: 100%;
+      height: 1px;
+      top: 30px;
+      left: 40px;
+      right: 40px;
+      border-bottom: 2px dotted #5ca9a4;
+      z-index: 0;
+    }
+
+    &.total_time:after {
+      display: none;
+    }
+
+    &.total_books {
+      padding-bottom: 25px;
+
+      &:after {
+        left: 0;
+        right: 0;
+      }
+    }
+
+
+   .text {
+      float: left;
+      line-height: 47px;
+      background: #4f5554;
+      position: relative;
+      z-index: 1;
+    }
+
+    .num {
+      background: #4f5554;
+      float: right;
+      position: relative;
+      z-index: 1;
+
+      .units {
+        position: static;
+      }
+    }
+  }
+  // }
+
+  .details {
+    margin-top: 15px; 
+
+    .text {
+      font-size: 26px;
+      padding-bottom: 10px;
+    }
+  }
+}

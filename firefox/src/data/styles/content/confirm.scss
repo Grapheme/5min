@@ -1,0 +1,33 @@
+&__confirm {
+  @import 'window';
+   .block {
+    padding-bottom: 140px;
+
+    .head1 {
+      padding-bottom: 0;
+    }
+
+    .head2 {
+      color: #5ba7a0;
+      padding-bottom: 5px;
+    }  
+
+    .tr-block {
+      z-index: 2;
+    }
+
+    .wrapper {
+      
+    }
+
+    .button.green {
+      position: absolute;
+      left: 70px;
+    }
+
+    .button.red {
+      position: absolute;
+      right: 70px;
+    }
+  } 
+}

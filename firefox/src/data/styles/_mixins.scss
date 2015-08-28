@@ -1,0 +1,28 @@
+@mixin georgia() {
+  font: {
+    family: Georgia, 'Times New Roman', Times, serif;
+    style: italic;
+  }
+}
+
+@mixin pt_sans_narrow($weight: normal) {
+  font: {
+    family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;;
+    weight: $weight;
+  }
+}
+
+@mixin font_rendering {
+  font-family: 'avantgardegothicc';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin triangle($width, $height, $color) {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 $width/2 $height $width/2;
+  border-color: transparent transparent $color transparent;
+  -webkit-backface-visibility: hidden;
+}

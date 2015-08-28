@@ -1,0 +1,76 @@
+&__timer {
+  @include font_rendering;
+
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+
+  position: fixed;
+  z-index: 9000;
+  background: #5d5e5f;
+  bottom: 0px;
+  left: 10px;
+  text-align: center;
+  min-width: 115px;
+
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+
+  transition: all 0.2s ease-out; 
+  transition-property: bottom;
+
+  .toggle {
+    width: 11px;
+    height: 0px;
+    border: 1px solid #fff;
+    float: right;
+    margin: 6px 5px 0 0;
+    cursor: pointer;
+  }
+
+  &.hidden-block {
+    bottom: -37px;
+
+    .toggle {
+      margin: 0px 5px 0 0;
+      height: 5px;
+      width: 9px;
+      border: 2px solid #fff;
+    } 
+  }
+
+  .time {
+    color: #cfaf58;
+    font-size: 32px;
+    @include pt_sans_narrow(bold);
+    display: inline-block;
+    line-height: 1.2em;
+    padding: 0 10px;
+  }
+
+  .sep {
+    padding: 0 1px 0 0;
+    line-height: 10px;
+    vertical-align: 20%;
+  }
+
+  .settings {
+    display: inline-block; 
+    background: url('#{ $base_url }images/settings.png') no-repeat center center;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+  }
+
+  .head {
+    background: #03a7a1;
+    color: #fff;
+    text-transform: uppercase;
+    @include pt_sans_narrow();
+    font: {
+      family: sans-serif;
+      size: 9px;
+    }
+    padding: 3px 0 2px;
+  }
+}

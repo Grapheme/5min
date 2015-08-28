@@ -1,0 +1,39 @@
+@import 'variables';
+@import 'fonts';
+@import 'mixins';
+
+html, body {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  @include font_rendering;
+} 
+
+body {
+  color: #fff;
+  background: #4f5554;
+  text-align: center;
+  width: 360px;
+  font-size: 15px;
+}
+
+.head1 {
+  font-size: 44px;
+  color: #5ca9a4;
+  @include pt_sans_narrow(bold);
+}
+
+.head2 {
+  color: #4f5554;
+  padding-bottom: 30px;
+  @include georgia;
+  font-size: 20px;
+}
+
+@import 'partial/settings';
+
+.sr-slider {
+  .item {
+    min-width: 93px;
+  }
+}
