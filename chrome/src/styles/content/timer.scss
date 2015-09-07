@@ -46,6 +46,9 @@
     display: inline-block;
     line-height: 1.2em;
     padding: 0 10px;
+    &.red {
+      color: red;
+    }
   }
 
   .sep {

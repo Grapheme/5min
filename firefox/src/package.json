@@ -1,12 +1,12 @@
 {
   "title": "Smart Reminder",
   "name": "smartreminder",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Расширение помогает не засиживаться а социальных сетях.",
   "main": "main.js",
   "author": "R:TA",
-  "engines": {
-    "firefox": ">=38.0a1"
-  },
-  "license": "MIT"
+  "license": "MIT",
+  "permissions": {
+    "cross-domain-content": ["http://www.smartreminder.ru/codes/index.php"]
+  }
 }

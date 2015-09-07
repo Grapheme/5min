@@ -3,6 +3,7 @@ var buttons = require('sdk/ui/button/action');
 var tabs = require('sdk/tabs');
 var pageMod = require('sdk/page-mod');
 var ss = require("sdk/simple-storage");
+var Request = require("sdk/request").Request;
 
 ss.storage.data = ss.storage.data || { stats: [], test: 0 }
 
@@ -20,8 +21,8 @@ var button = buttons.ActionButton({
 console.log(ss.storage.data, 1);
 
 var popup = require('sdk/panel').Panel({
-  width: 360,
-  height: 450,
+  width: 362,
+  height: 462,
   contentURL: data.url('popup.html'),
   contentStyleFile: [data.url('styles/popup.css'),],
   contentScriptFile: [
@@ -39,7 +40,7 @@ function handleClick(state) {
   popup.port.emit('ss', ss.storage);
 }
 
-pageMod.PageMod({
+var page = pageMod.PageMod({
   include: ['*.facebook.com'],
   contentStyleFile: data.url('styles/content.css'),
   //contentScript: 'window.alert("Page matches ruleset");',
@@ -52,6 +53,7 @@ pageMod.PageMod({
     data.url("scripts/common.js"),
     data.url("scripts/content.js"),
   ],
+  attachTo: "top",
   onAttach: function(worker) {
     worker.port.on('ss_save', function(data) {
       ss.storage.data = data;
@@ -60,5 +62,13 @@ pageMod.PageMod({
     worker.port.on('ss_load', function(){
       worker.port.emit("ss_load", ss.storage);
     });
+    worker.port.on('get_key', function(){
+      Request({
+        url: "http://www.smartreminder.ru/codes/index.php",
+        onComplete: function (response) {
+          worker.port.emit("get_key", response.text);
+        }
+      }).post();
+    })
   }
 });

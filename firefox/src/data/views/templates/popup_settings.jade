@@ -37,5 +37,5 @@
           .text #{ dayDate(d.id) }
           center
             - var over = (d.time > 300 ? 'num over' : 'num')
-            div(class=over) #{ d.time < 0 ? '-' : '' }!{ time(d.time) }
+            div(class=over) #{ d.time < 0 ? '-' : '' }!{ d.time == 0 ? '—:—' : time(d.time) }
           .units  мин/сек

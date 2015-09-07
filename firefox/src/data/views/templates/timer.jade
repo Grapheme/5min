@@ -2,9 +2,10 @@
 - var leadZero = function (s) { return Math.abs(s) < 10 ? '0'+ s : s }
 - var time = function(t) { var m = Math.floor(Math.abs(data.time) / 60); var s = Math.abs(data.time) % 60; return leadZero(m) + '<span class="sep">:</span>' + leadZero(s); }
 - var clearDb;
+- var is_red = function(){if (data.time<0) return 'red'}
 
 .head
   | Smart Reminder
   .toggle
-.time #{ data.time < 0 ? '-' : '' }!{ time(data.time) }
+.time(class = "#{ is_red() }") #{ data.time < 0 ? '-' : '' }!{ time(data.time) }
 .settings

@@ -61,7 +61,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     return true;
   } 
 });
-  
 
 // function getLastTab(callback) {
 //   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {

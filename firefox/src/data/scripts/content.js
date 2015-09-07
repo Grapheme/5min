@@ -1,3 +1,13 @@
+var page = self;
+
+
+function getNewKey(callback){
+  page.port.emit('get_key');
+  page.port.on('get_key', function(data){
+    callback(data);
+  });
+}
+
 $(function() {
 console.log('content loaded');
 
@@ -12,30 +22,11 @@ $(window).on('blur', function() {
   windowInactive = true; 
 });
 
+function isSharer() {
+  return window.location.href.split('/')[3]=='sharer'
+}
 
-// !!! chrome specific
 var tabId;
-/*
-chrome.runtime.sendMessage({ message: 'listenFocusChange' }, function(id) { tabId = id; });
-chrome.runtime.onMessage.addListener(function(message) {
-  windowInactive = message.focus;
-  console.log(message);
-});
-*/
-
-// var Manifest = chrome.runtime.getManifest();
-// console.log('sdsd', Manifest);
-
-/*
-chrome.runtime.sendMessage({ message: 'getFile', path: 'styles/content.css' }, function(file) {
-  var css = file.replace(/EXTENSION_PATH([^\"]*)/gm, function (m, m1) {
-    return chrome.runtime.getURL(m1);
-  });
-
-  chrome.runtime.sendMessage({ message: 'insertCSS', css: css }, function() {});
-});
-*/
-
 
 var timer = SmartReminder.block('timer', {
   'click .head': function() {
@@ -52,34 +43,39 @@ timer.start = function() {
   console.log('timer start');
 
   setTimeout(function() {
-    timer.element.slideDown();
+    if (!isSharer()){
+      timer.element.slideDown();
+    }
   }, 950);
   
   var timerPaused = function() {
     return settings.shown() ||
             congratulations.shown() || 
             confirm.shown() || 
-            windowInactive
+            windowInactive  ||
+            isSharer()
+  }
+  
+  function confirmShow(today){
+    if (today.time >= TIME_PER_DAY && !confirm.shown()) {
+      confirm.render({ data: { day: today.day }});
+      confirm.show();
+    }
   }
   
   db.stats.today(function(today) {
     timer.render({ data: { time: TIME_PER_DAY - today.time }});
-    
-    if (today.time >= TIME_PER_DAY) {
-      confirm.render({ data: { day: today.day }});
-      confirm.show();
-    }
-    
+    confirmShow(today)
   })
   
+  
   function onTimer(){
-    db.stats.today(function(today) {
-      
-      if (!timerPaused()){
-        //console.log(today.time)
+    if (!timerPaused()){
+      db.stats.today(function(today) {
         today.time++;
-      }
-    });
+        confirmShow(today)
+      });
+    }
   }
   
   this.timerId = setInterval(function() { 
@@ -109,18 +105,25 @@ var windowEvents = {
 var settings = SmartReminder.block('settings', $.extend(windowEvents, { }));
 settings.hide();
 settings.show = function() {
-  chrome.storage.local.get({ stats: [], test: 0 }, function(data) {
+  page.port.emit('ss_load');
+  page.port.on('ss_load', function(ss){
+    var data = ss.data;
+    
     this.render({ data: data });
     this.element.show();
     
     SmartReminder.slider({ el: $('.sr-slider'), pageSize: 2 });
-
+    
   }.bind(this));
 };
 
 
 var congratulations = SmartReminder.block('congratulations', $.extend(windowEvents, {
   'click .button.facebook': function() {
+    getNewKey(function(key){
+      congratulations.render({ data: { share: true, code: key }});      
+    })
+    //congratulations.render({ data: { share: true, code: '343434' }});
     // TODO fb share, then ->
       // TODO congratulations.render({ data: { share: true, code: '343434' }}); 
   },
@@ -139,6 +142,12 @@ congratulations.prepareData = function(data) {
 };
 
 
+congratulations.show = function(){
+  if (!isSharer()) {
+    this.element.show();
+  }
+}
+  
 // congratulations.render({ data: { share: true, code: '343434' }}); 
 // congratulations.show();
 // congratulations.render({ data: { install: true }});
@@ -180,8 +189,8 @@ confirm.show = function() {
       return;
     }
 
-    this.element.show();
     this.element.find('.close').hide();
+    this.element.show();
   }.bind(this));
 };
 
@@ -228,11 +237,60 @@ db.stats.yesterday = function(dataOrFunc) {
   }
 };
 
+var getLastDay = function(callback){
+  db.stats.toArray(function(arr){
+    var last_day = {id:0, day:0};
+    $.each(arr, function(index, val){
+      if (val.id>last_day.id && val.id != SmartReminder.date.ms.today() && val.day!=0){
+        last_day = val;
+      }
+    })
+    callback(last_day);
+  })
+}
+  
 db.stats.createToday = function(data) {
   data.id = SmartReminder.date.ms.today();
   return db.stats.add(data);
 };
 
+// создаёт дни когда пользователь не заходил
+db.stats.createEmptyDays = function(callback){
+  db.stats.each(function(item, cursor){
+    console.log(item, 'each')
+  });
+  db.settings.each(function(item, cursor){
+    console.log(item, 'each2')
+  });
+  
+  db.stats.toArray(function(arr){
+    console.log(arr, 'db.stats.arr')
+    var last_day = arr[arr.length-1];
+    if (last_day) {
+      var empty_days_count = SmartReminder.date.ms.betweenDays(last_day.id, SmartReminder.date.ms.today());
+      if (empty_days_count>1){
+        for (var i = 1; i < empty_days_count; i++) {
+          data = {
+            time: 0,
+            //day: parseInt(last_day.day)+i,
+            day: 0,
+            id: SmartReminder.date.ms.diffDays(last_day.id, i)
+          };
+          db.stats.add(data).then(function(){
+            if (i == empty_days_count){
+              callback();
+            }
+          });
+          console.log(data, 'new empty')
+        }
+      } else {
+        callback();
+      }
+    } else {
+      callback();
+    }
+  });
+}
 
 db.editSettings = function(dataOrFunc) {
   var c = db.settings.toCollection();
@@ -248,10 +306,12 @@ db.open()
   .catch(function(error){ console.log('Uh oh : ' + error); });
 
 document.addEventListener('cleanDB', function(e) {
-  db.stats.clear();
-  db.settings.clear();
-  alert('База данных очищена.');
-  location.href='';
+  db.settings.update('promo', {shown: false}).then(function(data){
+    db.stats.clear();
+    db.settings.clear();
+    alert('База данных очищена.');
+    location.href='';
+  });
 });
 //document.dispatchEvent(new CustomEvent('cleanDB')) -- очистить базу
 
@@ -259,7 +319,10 @@ db.settings.get('main', function(data) {
   if (!data) db.settings.add({ id: 'main' });
 });
   // .catch(function(error) { console.log('sdd', e) });
-
+db.settings.get('promo', function(data) {
+  if (!data) db.settings.add({ id: 'promo', shown:false });
+});
+  
 db.stats.hook('creating', function (id, obj) {
   sync();
 });
@@ -276,42 +339,60 @@ db.stats.hook('updating', function(mods, id, obj) {
 
 function sync() {
   db.stats.toArray(function(items) {
-    // !!! chrome specific
-    chrome.storage.local.set({ stats: items, test: 1 });
-    // chrome.storage.local.set({ statsIds: items.map(function(i) { return i.id; }) });
+    // !!! browser specific
+    page.port.emit('ss_save', { stats: items, test: 1 })
   });
 }
 
-Dexie.Promise.all(db.stats.yesterday(), db.stats.today(), db.editSettings()).then(function(results) {
-  // console.log('?', results);
-  
-  var yesterday = results[0] || {};
-  var today = results[1] || {};
-  var settings = results[2] || {};
-  
-  console.log(yesterday, today, settings)
-  console.log(SmartReminder.date.ms.today())
-  
-  if (today.time) {
-    timer.start();
-  } else {
-    if (yesterday.time && yesterday.time < TIME_PER_DAY) {
-      congratulations.render({ data: { day: yesterday.day }});
-      if (yesterday.day < 4) {
-        congratulations.show();          
+db.stats.createEmptyDays(function(){
+  Dexie.Promise.all(db.stats.yesterday(), db.stats.today(), db.editSettings()).then(function(results) {
+    // console.log('?', results);
+    console.log(results);
+    //var yesterday = results[0] || {};
+    var today = results[1] || {};
+    var settings = results[2] || {};
+    getLastDay(function(yesterday){
+      console.log(yesterday, today, settings)
+      console.log(SmartReminder.date.ms.today())
+
+      if (today.time !== undefined) {
+        timer.start();
+      } else {
+        if (yesterday.time !== undefined && yesterday.time <= TIME_PER_DAY) {
+          congratulations.render({ data: { day: yesterday.day }});
+          db.settings.get('promo', function(data) {
+            if (!data.shown) {
+              congratulations.show();
+              console.log(yesterday.day, 'day');
+              if (yesterday.day == 3) {
+                db.settings.update('promo', {shown: true}).then(function(data){
+                  console.log(data, 'data2')
+                });
+              }
+            }
+          });
+          //if (yesterday.day != 3) {
+          getLastDay(function(last_day){
+            db.stats.createToday({ time: 0, day: yesterday.day + 1 }).then(function() {
+              timer.start();
+            });
+          })
+          //}
+        } else {
+          if (!settings.askNext || settings.askNext <= SmartReminder.date.ms.today()) {
+            if (yesterday.day != undefined && yesterday.day<4) {
+              confirm.render({ data: { start: true }});
+              confirm.show();
+            } else {
+              db.stats.createToday({ time: 0, day: yesterday.day + 1 }).then(function() {
+                timer.start();
+              });
+            }
+          }
+        }
       }
-      //if (yesterday.day != 3) {
-        db.stats.createToday({ time: 0, day: yesterday.day + 1 }).then(function() {
-          timer.start();  
-        });
-      //}
-    } else {
-      if (!settings.askNext || settings.askNext <= SmartReminder.date.ms.today()) {
-        confirm.render({ data: { start: true }});
-        confirm.show();
-      }
-    }
-  }
+    })
+  });
 });
 
 });

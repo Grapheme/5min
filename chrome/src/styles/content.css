@@ -1,0 +1,900 @@
+@font-face {
+  font-family: 'PT Sans Narrow';
+  src: url('EXTENSION_PATHfonts/ptn57f_w.eot');
+  src: local('PT Sans Narrow'), url('EXTENSION_PATHfonts/PTN57F_W.eot?#iefix') format('embedded-opentype'), url('EXTENSION_PATHfonts/PTN57F_W.woff') format('woff'), url('EXTENSION_PATHfonts/PTN57F_W.ttf') format('truetype'), url('EXTENSION_PATHfonts/PTN57F_W.svg#PTSans-Narrow') format('svg'); }
+
+@font-face {
+  font-family: 'PT Sans Narrow';
+  font-weight: bold;
+  src: url('EXTENSION_PATHfonts/ptn77f_w.eot');
+  src: local('PT Sans Narrow Bold'), url('EXTENSION_PATHfonts/PTN77F_W.eot?#iefix') format('embedded-opentype'), url('EXTENSION_PATHfonts/PTN77F_W.woff') format('woff'), url('EXTENSION_PATHfonts/PTN77F_W.ttf') format('truetype'), url('EXTENSION_PATHfonts/PTN77F_W.svg#PTSans-NarrowBold') format('svg'); }
+
+/* line 1, /Users/morad/Projects/5min/chrome/src/styles/content/timer.scss */
+#smart_reminder__timer {
+  font-family: 'avantgardegothicc';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+  position: fixed;
+  z-index: 9000;
+  background: #5d5e5f;
+  bottom: 0px;
+  left: 10px;
+  text-align: center;
+  min-width: 115px;
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+  transition: all 0.2s ease-out;
+  transition-property: bottom; }
+  /* line 22, /Users/morad/Projects/5min/chrome/src/styles/content/timer.scss */
+  #smart_reminder__timer .toggle {
+    width: 11px;
+    height: 0px;
+    border: 1px solid #fff;
+    float: right;
+    margin: 6px 5px 0 0;
+    cursor: pointer; }
+  /* line 31, /Users/morad/Projects/5min/chrome/src/styles/content/timer.scss */
+  #smart_reminder__timer.hidden-block {
+    bottom: -37px; }
+    /* line 34, /Users/morad/Projects/5min/chrome/src/styles/content/timer.scss */
+    #smart_reminder__timer.hidden-block .toggle {
+      margin: 0px 5px 0 0;
+      height: 5px;
+      width: 9px;
+      border: 2px solid #fff; }
+  /* line 42, /Users/morad/Projects/5min/chrome/src/styles/content/timer.scss */
+  #smart_reminder__timer .time {
+    color: #cfaf58;
+    font-size: 32px;
+    font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 1.2em;
+    padding: 0 10px; }
+    /* line 49, /Users/morad/Projects/5min/chrome/src/styles/content/timer.scss */
+    #smart_reminder__timer .time.red {
+      color: red; }
+  /* line 54, /Users/morad/Projects/5min/chrome/src/styles/content/timer.scss */
+  #smart_reminder__timer .sep {
+    padding: 0 1px 0 0;
+    line-height: 10px;
+    vertical-align: 20%; }
+  /* line 60, /Users/morad/Projects/5min/chrome/src/styles/content/timer.scss */
+  #smart_reminder__timer .settings {
+    display: inline-block;
+    background: url('EXTENSION_PATHimages/settings.png') no-repeat center center;
+    width: 22px;
+    height: 22px;
+    cursor: pointer; }
+  /* line 68, /Users/morad/Projects/5min/chrome/src/styles/content/timer.scss */
+  #smart_reminder__timer .head {
+    background: #03a7a1;
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-family: sans-serif;
+    font-size: 9px;
+    padding: 3px 0 2px; }
+/* line 1, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+#smart_reminder__settings {
+  font-family: 'avantgardegothicc';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: fixed;
+  z-index: 9000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 20px; }
+  /* line 13, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+  #smart_reminder__settings em {
+    font-style: normal;
+    font-weight: bold; }
+  /* line 18, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+  #smart_reminder__settings .bg {
+    background: #000;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1; }
+  /* line 27, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+  #smart_reminder__settings .block {
+    background: #4f5554;
+    color: #eeeeee;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    min-height: 100px;
+    box-shadow: 5px 5px 18px #111;
+    padding-bottom: 10px; }
+    /* line 41, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__settings .block .wrapper {
+      background: #fff; }
+    /* line 46, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__settings .block .head1 {
+      font-size: 44px;
+      font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      padding-top: 45px;
+      padding-bottom: 7px;
+      background: #fff;
+      color: #5ca9a4; }
+    /* line 55, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__settings .block .head2 {
+      font-size: 27px;
+      padding-bottom: 30px;
+      color: #4f5554;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-style: italic;
+      font-size: 27px; }
+    /* line 66, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__settings .block .close {
+      position: absolute;
+      top: -6px;
+      right: -60px;
+      width: 40px;
+      height: 40px;
+      background: url('EXTENSION_PATHimages/cross.png') no-repeat center center;
+      cursor: pointer; }
+    /* line 76, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__settings .block .progress {
+      background: #eeeeee;
+      height: 36px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 10px 70px;
+      position: relative; }
+      /* line 84, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__settings .block .progress .progress-bar {
+        position: absolute;
+        height: 100%;
+        background: url('EXTENSION_PATHimages/progress_bg.png');
+        z-index: 1; }
+      /* line 91, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__settings .block .progress .label {
+        font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 16px;
+        color: #4f5554;
+        text-align: center;
+        line-height: 36px;
+        position: relative;
+        z-index: 2; }
+    /* line 102, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__settings .block .half-grey {
+      background: linear-gradient(#ffffff 50%, #4f5554 50%); }
+    /* line 107, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__settings .block .tr-block {
+      margin: 20px 70px 10px;
+      font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+      font-weight: normal;
+      font-size: 22px;
+      color: #5ca9a4;
+      border: 3px solid #5ca9a4;
+      background: #fff;
+      padding: 25px;
+      position: relative; }
+      /* line 119, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__settings .block .tr-block:before, #smart_reminder__settings .block .tr-block:after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        bottom: 100%;
+        width: 0;
+        height: 0;
+        border-style: solid; }
+      /* line 133, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__settings .block .tr-block:before {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 17.5px 15px 17.5px;
+        border-color: transparent transparent #5ca9a4 transparent;
+        -webkit-backface-visibility: hidden; }
+      /* line 137, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__settings .block .tr-block:after {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 14px 12px 14px;
+        border-color: transparent transparent #fff transparent;
+        -webkit-backface-visibility: hidden;
+        transform: translate(-50%, 5%); }
+      /* line 142, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__settings .block .tr-block a {
+        color: #5ca9a4; }
+    /* line 147, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__settings .block .button {
+      box-sizing: border-box;
+      cursor: pointer;
+      -webkit-user-select: none;
+      color: #fff;
+      font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      font-size: 27px;
+      line-height: 1.05em;
+      border-radius: 5px;
+      display: inline-block;
+      width: 320px;
+      height: 70px;
+      padding: 0 20px;
+      text-transform: uppercase;
+      text-align: center; }
+      /* line 174, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__settings .block .button .wr {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%); }
+      /* line 180, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__settings .block .button.small {
+        height: 50px;
+        font-size: 20px;
+        width: auto;
+        padding: 0 25px;
+        border-radius: 3px; }
+      /* line 189, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__settings .block .button .small {
+        display: block;
+        font-size: 16px;
+        padding: 0;
+        line-height: 16px; }
+      /* line 196, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__settings .block .button.green {
+        background: #5ca9a4; }
+        /* line 200, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+        #smart_reminder__settings .block .button.green.facebook .i {
+          display: inline-block;
+          background: url("EXTENSION_PATHimages/facebook.png") no-repeat center;
+          width: 20px;
+          height: 30px;
+          vertical-align: bottom;
+          margin-right: 10px; }
+      /* line 212, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__settings .block .button.red {
+        background: #de5756; }
+/* line 2, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+#smart_reminder__settings .head1 {
+  font-size: 33px;
+  padding: 15px 0 0;
+  background: #fff; }
+/* line 8, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+#smart_reminder__settings .head2 {
+  margin: -2px 0 23px;
+  background: #fff; }
+/* line 16, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+#smart_reminder__settings .row {
+  padding: 18px 0 10px;
+  position: relative; }
+  /* line 20, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+  #smart_reminder__settings .row:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 0;
+    border-top: 1px solid #3f4443;
+    border-bottom: 1px solid #636a69; }
+  /* line 31, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+  #smart_reminder__settings .row .num {
+    position: relative; }
+  /* line 35, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+  #smart_reminder__settings .row .units {
+    position: absolute;
+    bottom: -6px;
+    left: 100%;
+    margin-left: 6px; }
+/* line 43, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+#smart_reminder__settings .details {
+  padding: 18px 0 0; }
+/* line 47, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+#smart_reminder__settings .text {
+  font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+  font-weight: normal; }
+/* line 51, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+#smart_reminder__settings .secondary {
+  color: #8f9d9b; }
+/* line 55, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+#smart_reminder__settings .num {
+  color: #cfaf58;
+  font-size: 34px;
+  font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em; }
+/* line 63, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+#smart_reminder__settings .units {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: normal;
+  display: inline-block;
+  color: #eeeeee; }
+/* line 73, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+#smart_reminder__settings .sr-slider {
+  position: relative;
+  overflow: hidden;
+  padding: 0 0 0 56px;
+  margin-top: 10px;
+  height: 98px; }
+  /* line 81, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+  #smart_reminder__settings .sr-slider .arrow {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    cursor: pointer;
+    width: 56px;
+    height: 100%;
+    background: #3f4443 url('EXTENSION_PATHimages/arrow.png') no-repeat 22px center; }
+    /* line 90, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+    #smart_reminder__settings .sr-slider .arrow.disabled {
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%); }
+    /* line 94, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+    #smart_reminder__settings .sr-slider .arrow.left {
+      left: 0; }
+    /* line 98, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+    #smart_reminder__settings .sr-slider .arrow.right {
+      right: 0;
+      transform: rotate(180deg); }
+  /* line 104, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+  #smart_reminder__settings .sr-slider .container {
+    display: table;
+    position: relative;
+    height: 100%; }
+  /* line 110, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+  #smart_reminder__settings .sr-slider .item {
+    background: #636a69;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 14px 0;
+    height: 100%;
+    border-left: 2px solid #4f5554;
+    position: relative;
+    min-width: 107px;
+    left: 1px; }
+    /* line 121, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+    #smart_reminder__settings .sr-slider .item .text {
+      color: #8f9d9b;
+      font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+      font-weight: normal;
+      font-size: 16px; }
+    /* line 127, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+    #smart_reminder__settings .sr-slider .item .num {
+      font-size: 30px;
+      border-bottom: 1px solid transparent;
+      line-height: 100%; }
+      /* line 131, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+      #smart_reminder__settings .sr-slider .item .num.over {
+        border-bottom: 1px solid #cfaf58; }
+    /* line 136, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+    #smart_reminder__settings .sr-slider .item .units {
+      font-size: 14px; }
+    /* line 140, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+    #smart_reminder__settings .sr-slider .item.today {
+      background: #767e7d; }
+      /* line 143, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+      #smart_reminder__settings .sr-slider .item.today:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -6px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 6px 6px 0 6px;
+        border-color: #4f5554 transparent transparent transparent; }
+      /* line 157, /Users/morad/Projects/5min/chrome/src/styles/partial/settings.scss */
+      #smart_reminder__settings .sr-slider .item.today .text {
+        color: #eeeeee; }
+/* line 6, /Users/morad/Projects/5min/chrome/src/styles/content/settings.scss */
+#smart_reminder__settings .block {
+  padding-bottom: 0; }
+  /* line 7, /Users/morad/Projects/5min/chrome/src/styles/content/settings.scss */
+  #smart_reminder__settings .block .head1 {
+    padding-bottom: 0px; }
+/* line 18, /Users/morad/Projects/5min/chrome/src/styles/content/settings.scss */
+#smart_reminder__settings .row {
+  overflow: hidden;
+  vertical-align: bottom;
+  padding: 0 40px;
+  margin-top: -5px; }
+  /* line 25, /Users/morad/Projects/5min/chrome/src/styles/content/settings.scss */
+  #smart_reminder__settings .row:before {
+    display: block;
+    content: '';
+    position: absolute;
+    height: 1px;
+    top: 30px;
+    left: 40px;
+    right: 40px;
+    border-bottom: 2px dotted #5ca9a4;
+    z-index: 0; }
+  /* line 38, /Users/morad/Projects/5min/chrome/src/styles/content/settings.scss */
+  #smart_reminder__settings .row.total_time:after {
+    display: none; }
+  /* line 42, /Users/morad/Projects/5min/chrome/src/styles/content/settings.scss */
+  #smart_reminder__settings .row.total_books {
+    padding-bottom: 25px; }
+    /* line 45, /Users/morad/Projects/5min/chrome/src/styles/content/settings.scss */
+    #smart_reminder__settings .row.total_books:after {
+      left: 0;
+      right: 0; }
+  /* line 52, /Users/morad/Projects/5min/chrome/src/styles/content/settings.scss */
+  #smart_reminder__settings .row .text {
+    float: left;
+    line-height: 47px;
+    background: #4f5554;
+    position: relative;
+    z-index: 1; }
+  /* line 60, /Users/morad/Projects/5min/chrome/src/styles/content/settings.scss */
+  #smart_reminder__settings .row .num {
+    background: #4f5554;
+    float: right;
+    position: relative;
+    z-index: 1; }
+    /* line 66, /Users/morad/Projects/5min/chrome/src/styles/content/settings.scss */
+    #smart_reminder__settings .row .num .units {
+      position: static; }
+/* line 73, /Users/morad/Projects/5min/chrome/src/styles/content/settings.scss */
+#smart_reminder__settings .details {
+  margin-top: 15px; }
+  /* line 76, /Users/morad/Projects/5min/chrome/src/styles/content/settings.scss */
+  #smart_reminder__settings .details .text {
+    font-size: 26px;
+    padding-bottom: 10px; }
+/* line 1, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+#smart_reminder__congratulations {
+  font-family: 'avantgardegothicc';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: fixed;
+  z-index: 9000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 20px; }
+  /* line 13, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+  #smart_reminder__congratulations em {
+    font-style: normal;
+    font-weight: bold; }
+  /* line 18, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+  #smart_reminder__congratulations .bg {
+    background: #000;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1; }
+  /* line 27, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+  #smart_reminder__congratulations .block {
+    background: #4f5554;
+    color: #eeeeee;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    min-height: 100px;
+    box-shadow: 5px 5px 18px #111;
+    padding-bottom: 10px; }
+    /* line 41, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__congratulations .block .wrapper {
+      background: #fff; }
+    /* line 46, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__congratulations .block .head1 {
+      font-size: 44px;
+      font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      padding-top: 45px;
+      padding-bottom: 7px;
+      background: #fff;
+      color: #5ca9a4; }
+    /* line 55, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__congratulations .block .head2 {
+      font-size: 27px;
+      padding-bottom: 30px;
+      color: #4f5554;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-style: italic;
+      font-size: 27px; }
+    /* line 66, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__congratulations .block .close {
+      position: absolute;
+      top: -6px;
+      right: -60px;
+      width: 40px;
+      height: 40px;
+      background: url('EXTENSION_PATHimages/cross.png') no-repeat center center;
+      cursor: pointer; }
+    /* line 76, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__congratulations .block .progress {
+      background: #eeeeee;
+      height: 36px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 10px 70px;
+      position: relative; }
+      /* line 84, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__congratulations .block .progress .progress-bar {
+        position: absolute;
+        height: 100%;
+        background: url('EXTENSION_PATHimages/progress_bg.png');
+        z-index: 1; }
+      /* line 91, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__congratulations .block .progress .label {
+        font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 16px;
+        color: #4f5554;
+        text-align: center;
+        line-height: 36px;
+        position: relative;
+        z-index: 2; }
+    /* line 102, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__congratulations .block .half-grey {
+      background: linear-gradient(#ffffff 50%, #4f5554 50%); }
+    /* line 107, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__congratulations .block .tr-block {
+      margin: 20px 70px 10px;
+      font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+      font-weight: normal;
+      font-size: 22px;
+      color: #5ca9a4;
+      border: 3px solid #5ca9a4;
+      background: #fff;
+      padding: 25px;
+      position: relative; }
+      /* line 119, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__congratulations .block .tr-block:before, #smart_reminder__congratulations .block .tr-block:after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        bottom: 100%;
+        width: 0;
+        height: 0;
+        border-style: solid; }
+      /* line 133, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__congratulations .block .tr-block:before {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 17.5px 15px 17.5px;
+        border-color: transparent transparent #5ca9a4 transparent;
+        -webkit-backface-visibility: hidden; }
+      /* line 137, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__congratulations .block .tr-block:after {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 14px 12px 14px;
+        border-color: transparent transparent #fff transparent;
+        -webkit-backface-visibility: hidden;
+        transform: translate(-50%, 5%); }
+      /* line 142, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__congratulations .block .tr-block a {
+        color: #5ca9a4; }
+    /* line 147, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__congratulations .block .button {
+      box-sizing: border-box;
+      cursor: pointer;
+      -webkit-user-select: none;
+      color: #fff;
+      font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      font-size: 27px;
+      line-height: 1.05em;
+      border-radius: 5px;
+      display: inline-block;
+      width: 320px;
+      height: 70px;
+      padding: 0 20px;
+      text-transform: uppercase;
+      text-align: center; }
+      /* line 174, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__congratulations .block .button .wr {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%); }
+      /* line 180, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__congratulations .block .button.small {
+        height: 50px;
+        font-size: 20px;
+        width: auto;
+        padding: 0 25px;
+        border-radius: 3px; }
+      /* line 189, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__congratulations .block .button .small {
+        display: block;
+        font-size: 16px;
+        padding: 0;
+        line-height: 16px; }
+      /* line 196, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__congratulations .block .button.green {
+        background: #5ca9a4; }
+        /* line 200, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+        #smart_reminder__congratulations .block .button.green.facebook .i {
+          display: inline-block;
+          background: url("EXTENSION_PATHimages/facebook.png") no-repeat center;
+          width: 20px;
+          height: 30px;
+          vertical-align: bottom;
+          margin-right: 10px; }
+      /* line 212, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__congratulations .block .button.red {
+        background: #de5756; }
+/* line 6, /Users/morad/Projects/5min/chrome/src/styles/content/congratulations.scss */
+#smart_reminder__congratulations .block.share, #smart_reminder__congratulations .block.day {
+  padding-bottom: 80px; }
+/* line 10, /Users/morad/Projects/5min/chrome/src/styles/content/congratulations.scss */
+#smart_reminder__congratulations .block.day3 {
+  padding-bottom: 40px; }
+  /* line 13, /Users/morad/Projects/5min/chrome/src/styles/content/congratulations.scss */
+  #smart_reminder__congratulations .block.day3 .button.green {
+    display: block;
+    margin: 0 70px; }
+/* line 19, /Users/morad/Projects/5min/chrome/src/styles/content/congratulations.scss */
+#smart_reminder__congratulations .block .head2 {
+  font-size: 24px;
+  color: #5ba7a0;
+  padding: 0 0 24px;
+  margin-bottom: 0; }
+/* line 27, /Users/morad/Projects/5min/chrome/src/styles/content/congratulations.scss */
+#smart_reminder__congratulations .block .text {
+  color: #fff;
+  font-size: 26px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
+  padding: 30px; }
+/* line 34, /Users/morad/Projects/5min/chrome/src/styles/content/congratulations.scss */
+#smart_reminder__congratulations .block .promocode {
+  display: table;
+  padding: 0px 10px 20px;
+  margin: 0 auto 0; }
+  /* line 39, /Users/morad/Projects/5min/chrome/src/styles/content/congratulations.scss */
+  #smart_reminder__congratulations .block .promocode input {
+    vertical-align: middle;
+    background: #ebebeb;
+    border: 1px solid #959595;
+    border-radius: 3px;
+    padding: 10px 15px;
+    font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 22px;
+    text-align: center;
+    margin-right: 20px; }
+  /* line 52, /Users/morad/Projects/5min/chrome/src/styles/content/congratulations.scss */
+  #smart_reminder__congratulations .block .promocode .button {
+    vertical-align: middle; }
+/* line 58, /Users/morad/Projects/5min/chrome/src/styles/content/congratulations.scss */
+#smart_reminder__congratulations .block .button.green {
+  width: auto;
+  padding: 0 50px;
+  margin-bottom: 3px; }
+/* line 1, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+#smart_reminder__confirm {
+  font-family: 'avantgardegothicc';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: fixed;
+  z-index: 9000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 20px; }
+  /* line 13, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+  #smart_reminder__confirm em {
+    font-style: normal;
+    font-weight: bold; }
+  /* line 18, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+  #smart_reminder__confirm .bg {
+    background: #000;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1; }
+  /* line 27, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+  #smart_reminder__confirm .block {
+    background: #4f5554;
+    color: #eeeeee;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    min-height: 100px;
+    box-shadow: 5px 5px 18px #111;
+    padding-bottom: 10px; }
+    /* line 41, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__confirm .block .wrapper {
+      background: #fff; }
+    /* line 46, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__confirm .block .head1 {
+      font-size: 44px;
+      font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      padding-top: 45px;
+      padding-bottom: 7px;
+      background: #fff;
+      color: #5ca9a4; }
+    /* line 55, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__confirm .block .head2 {
+      font-size: 27px;
+      padding-bottom: 30px;
+      color: #4f5554;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-style: italic;
+      font-size: 27px; }
+    /* line 66, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__confirm .block .close {
+      position: absolute;
+      top: -6px;
+      right: -60px;
+      width: 40px;
+      height: 40px;
+      background: url('EXTENSION_PATHimages/cross.png') no-repeat center center;
+      cursor: pointer; }
+    /* line 76, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__confirm .block .progress {
+      background: #eeeeee;
+      height: 36px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 10px 70px;
+      position: relative; }
+      /* line 84, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__confirm .block .progress .progress-bar {
+        position: absolute;
+        height: 100%;
+        background: url('EXTENSION_PATHimages/progress_bg.png');
+        z-index: 1; }
+      /* line 91, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__confirm .block .progress .label {
+        font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 16px;
+        color: #4f5554;
+        text-align: center;
+        line-height: 36px;
+        position: relative;
+        z-index: 2; }
+    /* line 102, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__confirm .block .half-grey {
+      background: linear-gradient(#ffffff 50%, #4f5554 50%); }
+    /* line 107, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__confirm .block .tr-block {
+      margin: 20px 70px 10px;
+      font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+      font-weight: normal;
+      font-size: 22px;
+      color: #5ca9a4;
+      border: 3px solid #5ca9a4;
+      background: #fff;
+      padding: 25px;
+      position: relative; }
+      /* line 119, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__confirm .block .tr-block:before, #smart_reminder__confirm .block .tr-block:after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        bottom: 100%;
+        width: 0;
+        height: 0;
+        border-style: solid; }
+      /* line 133, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__confirm .block .tr-block:before {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 17.5px 15px 17.5px;
+        border-color: transparent transparent #5ca9a4 transparent;
+        -webkit-backface-visibility: hidden; }
+      /* line 137, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__confirm .block .tr-block:after {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 14px 12px 14px;
+        border-color: transparent transparent #fff transparent;
+        -webkit-backface-visibility: hidden;
+        transform: translate(-50%, 5%); }
+      /* line 142, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__confirm .block .tr-block a {
+        color: #5ca9a4; }
+    /* line 147, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+    #smart_reminder__confirm .block .button {
+      box-sizing: border-box;
+      cursor: pointer;
+      -webkit-user-select: none;
+      color: #fff;
+      font-family: 'PT Sans Narrow', Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      font-size: 27px;
+      line-height: 1.05em;
+      border-radius: 5px;
+      display: inline-block;
+      width: 320px;
+      height: 70px;
+      padding: 0 20px;
+      text-transform: uppercase;
+      text-align: center; }
+      /* line 174, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__confirm .block .button .wr {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%); }
+      /* line 180, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__confirm .block .button.small {
+        height: 50px;
+        font-size: 20px;
+        width: auto;
+        padding: 0 25px;
+        border-radius: 3px; }
+      /* line 189, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__confirm .block .button .small {
+        display: block;
+        font-size: 16px;
+        padding: 0;
+        line-height: 16px; }
+      /* line 196, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__confirm .block .button.green {
+        background: #5ca9a4; }
+        /* line 200, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+        #smart_reminder__confirm .block .button.green.facebook .i {
+          display: inline-block;
+          background: url("EXTENSION_PATHimages/facebook.png") no-repeat center;
+          width: 20px;
+          height: 30px;
+          vertical-align: bottom;
+          margin-right: 10px; }
+      /* line 212, /Users/morad/Projects/5min/chrome/src/styles/content/_window.scss */
+      #smart_reminder__confirm .block .button.red {
+        background: #de5756; }
+/* line 3, /Users/morad/Projects/5min/chrome/src/styles/content/confirm.scss */
+#smart_reminder__confirm .block {
+  padding-bottom: 140px; }
+  /* line 6, /Users/morad/Projects/5min/chrome/src/styles/content/confirm.scss */
+  #smart_reminder__confirm .block .head1 {
+    padding-bottom: 0; }
+  /* line 10, /Users/morad/Projects/5min/chrome/src/styles/content/confirm.scss */
+  #smart_reminder__confirm .block .head2 {
+    color: #5ba7a0;
+    padding-bottom: 5px; }
+  /* line 15, /Users/morad/Projects/5min/chrome/src/styles/content/confirm.scss */
+  #smart_reminder__confirm .block .tr-block {
+    z-index: 2; }
+  /* line 23, /Users/morad/Projects/5min/chrome/src/styles/content/confirm.scss */
+  #smart_reminder__confirm .block .button.green {
+    position: absolute;
+    left: 70px; }
+  /* line 28, /Users/morad/Projects/5min/chrome/src/styles/content/confirm.scss */
+  #smart_reminder__confirm .block .button.red {
+    position: absolute;
+    right: 70px; }
+
+/*# sourceMappingURL=content.css.map */

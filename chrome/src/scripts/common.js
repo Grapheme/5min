@@ -13,6 +13,10 @@ SmartReminder.slider = function slider (options) {
     options.currentItem = options.todayItem-options.visibleItems+1;
   }
   
+  if (options.items.size()==0){
+    options.el.find('.arrow').addClass('disabled');
+  }
+  
   options.move = function (index) {
     
     if (index > this.items.length - 1) index = 0;
@@ -77,6 +81,7 @@ SmartReminder.blockClass.prototype = {
     }.bind(this));
 
   },
+
   show: function() {
     this.element.show();
   },
@@ -84,6 +89,7 @@ SmartReminder.blockClass.prototype = {
   hide: function() {
     this.element.hide();
   },
+
   shown: function() {
     return this.element.is(':visible');
   },
@@ -98,7 +104,6 @@ SmartReminder.blockClass.prototype = {
     this.element.html(this.template(this.data));
     return this;
   }
-
 };
 
 SmartReminder.block = function block(id, events, data) {
@@ -126,6 +131,10 @@ SmartReminder.date.ms = {
   today: function () {
     return this.day(Date.now());
   },
+  
+  betweenDays: function (first, second) {
+    return Number(second - first)/this.dayLong;
+  },
 
   diffDays: function(date, count) {
     return Number(date) + count * this.dayLong;
@@ -139,3 +148,13 @@ SmartReminder.date.ms = {
     return this.diffDays(this.today(), +1);
   } 
 };
+
+function getNewKey(callback){
+  $.post('//www.smartreminder.ru/codes/index.php').done(function($data){
+    callback($data)
+  });
+  /*$.getJSON("http://common.dev.grapheme.ru/frontend_jsons/dummy_smartreading.json",
+  function(data) {
+    callback(data.key)
+  }).error(function(data) { console.log(data); });*/
+}

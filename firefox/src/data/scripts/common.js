@@ -8,6 +8,10 @@ SmartReminder.slider = function slider (options) {
   options.currentItem = 0;
   
   if (options.items.size()==0){
+    options.el.find('.arrow').addClass('disabled');
+  }
+  
+  if (options.items.size()==0){
     return false
   }
   
@@ -130,7 +134,11 @@ SmartReminder.date.ms = {
   today: function () {
     return this.day(Date.now());
   },
-
+  
+  betweenDays: function (first, second) {
+    return Number(second - first)/this.dayLong;
+  },
+  
   diffDays: function(date, count) {
     return Number(date) + count * this.dayLong;
   },

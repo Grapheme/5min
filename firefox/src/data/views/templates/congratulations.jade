@@ -50,7 +50,7 @@ block content
           .button.red.small.copy
             .wr скопировать
     
-      .half-grey
+      a.half-grey(href="http://www.smartreading.ru/reg/personal/", target="_blank")
         .button.green
           .wr Получите свою награду на smartreading.ru!
 
@@ -60,7 +60,7 @@ block content
     .text Сформируй полезную привычку и избавься <br>от прокрастинации!
 
   if data.day == 3
-    .button.green.facebook 
+    a.button.green.facebook(onclick="var url = 'http://www.smartreminder.ru/';var winWidth = 520;var winHeight = 350;var winTop = (screen.height / 2) - (winHeight / 2);var winLeft = (screen.width / 2) - (winWidth / 2);window.open('http://www.facebook.com/sharer/sharer.php?u='+url, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);")
       .wr 
         .i
         | Поделиться с друзьями
